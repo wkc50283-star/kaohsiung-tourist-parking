@@ -7,7 +7,7 @@ function statusLabel(status){
 function roadLabel(type){
   if(type==='avoid') return ['❌ 不建議亂繞','avoid'];
   if(type==='has') return ['🅿️ 有路邊停車格','road-ok'];
-  return ['🅿️ 可嘗試路段','road-unknown'];
+  return ['🅿️ 周邊街道路邊停車格','road-unknown'];
 }
 function findSiteBySlug(){
   const file = location.pathname.split('/').pop() || 'index.html';
@@ -39,7 +39,7 @@ function renderHome(){
 function siteCard(s){
   return `<a class="site-card" href="${s.slug}">
     <h3>${s.name}</h3>
-    <p>查看附近停車場與路邊停車格</p>
+    <p>先看停車場，再看周邊街道路邊停車格</p>
   </a>`;
 }
 function renderPage(){
@@ -53,15 +53,15 @@ function renderPage(){
   root.innerHTML = `
     <section class="result-section">
       <div class="section-title">
-        <h2>先看停車場</h2>
-        <p>停車場較適合直接導航，車位狀態依可取得資料呈現，不保證抵達時仍有車位。</p>
+        <h2>第一優先：停車場</h2>
+        <p>先看可直接導航的停車場，車位狀態依可取得資料呈現，不保證抵達時仍有車位。</p>
       </div>
       <div class="grid">${site.lots.map(renderLotCard).join('')}</div>
     </section>
     <section class="result-section">
       <div class="section-title">
-        <h2>再看路邊停車格</h2>
-        <p>路邊停車格沒有即時空位資料，只提示哪些路段可嘗試、哪些地方不建議亂繞。</p>
+        <h2>第二優先：周邊街道路邊停車格</h2>
+        <p>停車場不合適時，再看附近哪些路段有路邊停車格或可嘗試停車，避免一直亂繞。路邊格無即時空位資料，請以現場標線與告示為準。</p>
       </div>
       <div class="grid">${(site.roads||[]).map(renderRoadCard).join('')}</div>
     </section>`;
