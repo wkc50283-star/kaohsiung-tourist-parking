@@ -1,13 +1,8 @@
-function normalize(text){return (text||'').toLowerCase().replace(/路邊停車格|停車格|停車場|停車|即時|推薦|附近|\s/g,'');}
+function normalize(text){return (text||'').toLowerCase().replace(/停車|停車場|即時|推薦|景點|\s/g,'');}
 function statusLabel(status){
-  if(status==='available') return ['🟢 目前有車位資料','available'];
-  if(status==='full') return ['🔴 目前可能已滿','full'];
+  if(status==='available') return ['🟢 有車位','available'];
+  if(status==='full') return ['🔴 可能已滿','full'];
   return ['⚪ 無即時資料','unknown'];
-}
-function roadLabel(type){
-  if(type==='avoid') return ['❌ 不建議亂繞','avoid'];
-  if(type==='has') return ['🅿️ 有路邊停車格','road-ok'];
-  return ['🅿️ 周邊街道路邊停車格','road-unknown'];
 }
 function findSiteBySlug(){
   const file = location.pathname.split('/').pop() || 'index.html';
@@ -19,103 +14,65 @@ function findSiteByQuery(q){
   return SITES.find(s => normalize(s.name).includes(n) || n.includes(normalize(s.name)) || s.keywords.some(k=>normalize(k).includes(n) || n.includes(normalize(k))));
 }
 function renderHome(){
+  const groups = {};
+  SITES.forEach(s => { groups[s.category] ??= []; groups[s.category].push(s); });
   const root = document.querySelector('#site-list');
   if(!root) return;
-  const hotIds = ['pier2','kmc','cijin','xiziwan','weiwuying'];
-  const hot = SITES.filter(s=>hotIds.includes(s.id));
-  const rest = SITES.filter(s=>!hotIds.includes(s.id));
-  const groups = {};
-  rest.forEach(s => { groups[s.category] ??= []; groups[s.category].push(s); });
-  root.innerHTML = `
-    <h2 class="category">熱門景點</h2>
-    <div class="grid home-grid">${hot.map(siteCard).join('')}</div>
-    <details class="all-sites">
-      <summary>查看全部景點</summary>
-      ${Object.entries(groups).map(([cat,items])=>`
-        <h2 class="category">${cat}</h2>
-        <div class="grid home-grid">${items.map(siteCard).join('')}</div>`).join('')}
-    </details>`;
-}
-function siteCard(s){
-  return `<a class="site-card" href="${s.slug}">
-    <h3>${s.name}</h3>
-    <p>先看停車場，再看周邊街道路邊停車格</p>
-  </a>`;
+  root.innerHTML = Object.entries(groups).map(([cat,items])=>`
+    <h2 class="category">${cat}</h2>
+    <div class="grid">${items.map(s=>`
+      <a class="site-card" href="${s.slug}">
+        <h3>${s.name}</h3>
+        <p>查看附近停車場與可嘗試路段</p>
+      </a>`).join('')}</div>`).join('');
 }
 function renderPage(){
   const site = findSiteBySlug();
-  const root = document.querySelector('#parking-list');
-  if(!site || !root) return;
-  document.title = `${site.title}｜高雄景點停車查詢`;
+  const parkingRoot = document.querySelector('#parking-list');
+  const roadRoot = document.querySelector('#road-list');
+  if(!site || !parkingRoot) return;
+  document.title = `${site.title}｜高雄觀光景點停車推薦`;
   document.querySelector('#page-title').textContent = site.title;
   document.querySelector('#page-intro').textContent = site.intro;
   document.querySelector('#page-keywords').textContent = site.keywords.join('、');
-  root.innerHTML = `
-    <section class="result-section">
-      <div class="section-title">
-        <h2>第一優先：停車場</h2>
-        <p>先看可直接導航的停車場，車位狀態依可取得資料呈現，不保證抵達時仍有車位。</p>
+  parkingRoot.innerHTML = site.lots.map(lot=>{
+    const [txt, cls] = statusLabel(lot.status);
+    const paymentBadges = [lot.epay, lot.plate].filter(Boolean).map(v=>`<span>${v}</span>`).join('');
+    return `<article class="parking-card decision-card">
+      <div class="status-line ${cls}">${txt}</div>
+      <h3>${lot.name}</h3>
+      <p class="distance">📍 ${lot.distance}</p>
+      <a class="nav-btn" target="_blank" rel="noopener" href="${lot.maps}">🧭 開始導航</a>
+      <div class="price-lines">
+        <div>${lot.weekday}</div>
+        <div>${lot.holiday}</div>
       </div>
-      <div class="grid">${site.lots.map(renderLotCard).join('')}</div>
-    </section>
-    <section class="result-section">
-      <div class="section-title">
-        <h2>第二優先：周邊街道路邊停車格</h2>
-        <p>停車場不合適時，再看附近哪些路段有路邊停車格或可嘗試停車，避免一直亂繞。路邊格無即時空位資料，請以現場標線與告示為準。</p>
-      </div>
-      <div class="grid">${(site.roads||[]).map(renderRoadCard).join('')}</div>
-    </section>`;
-}
-function renderRoadCard(road){
-  const [txt, cls] = roadLabel(road.type);
-  return `<article class="parking-card road-card">
-    <span class="status ${cls}">${txt}</span>
-    <h3>${road.name}</h3>
-    <p class="priority-line">${road.distance || '距離依現場為準'}</p>
-    <p>${road.note || ''}</p>
-    <a class="btn maps compact" target="_blank" rel="noopener" href="${road.maps}">📍 導航到這個路段</a>
-  </article>`;
-}
-function renderLotCard(lot){
-  const [txt, cls] = statusLabel(lot.status);
-  const distance = lot.distance || lot.walk || '距離待確認';
-  return `<article class="parking-card">
-    <span class="status ${cls}">${txt}</span>
-    <h3>${lot.name}</h3>
-    <p class="priority-line">📍 ${distance}</p>
-    <p class="quick-facts"><span>💵 ${lot.cash || '付款方式待確認'}</span><span>💰 平日 ${lot.weekday || '需確認'}</span></p>
-    <p>${lot.note || ''}</p>
-    <div class="info-strip" aria-label="停車場補充資訊">
-      <span class="info-pill">假日 ${lot.holiday || '需確認'}</span>
-      <span class="info-pill">電子支付 ${lot.epay || '需確認'}</span>
-      <span class="info-pill">車牌辨識 ${lot.plate || '需確認'}</span>
-      <span class="info-pill muted-pill">更新 ${lot.updated || '需確認'}</span>
-    </div>
-    <a class="btn maps compact" target="_blank" rel="noopener" href="${lot.maps}">📍 Google Maps</a>
-  </article>`;
+      <div class="mini-tags">${paymentBadges}</div>
+      <p class="card-note">${lot.note || ''}</p>
+    </article>`;
+  }).join('');
+  if(roadRoot){
+    const roads = site.roads || [];
+    roadRoot.innerHTML = roads.map(r=>`
+      <article class="road-card">
+        <h3>${r.name}</h3>
+        <p class="road-status">${r.status}</p>
+        <p class="card-note">${r.note}</p>
+        <a class="nav-btn light" target="_blank" rel="noopener" href="${r.maps}">🧭 導航到路段</a>
+      </article>`).join('') || '<p class="empty">目前尚未整理可嘗試路段。</p>';
+  }
 }
 function bindSearch(){
   const input = document.querySelector('#searchInput');
   const go = document.querySelector('#searchBtn');
-  const voice = document.querySelector('#voiceBtn');
   const msg = document.querySelector('#searchMsg');
   if(!input) return;
   function submit(){
     const site = findSiteByQuery(input.value);
     if(site) location.href = site.slug;
-    else if(msg) msg.textContent = '目前找不到這個地點，請試試：駁二、高流、旗津、西子灣。';
+    else if(msg) msg.textContent = '目前找不到這個景點，請試試：駁二、高流、旗津、西子灣。';
   }
   go?.addEventListener('click', submit);
   input.addEventListener('keydown', e=>{ if(e.key==='Enter') submit(); });
-  voice?.addEventListener('click', ()=>{
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if(!SR){ if(msg) msg.textContent = '這台裝置或瀏覽器暫不支援語音搜尋，請改用文字輸入。'; return; }
-    const rec = new SR();
-    rec.lang = 'zh-TW'; rec.interimResults = false; rec.maxAlternatives = 1;
-    if(msg) msg.textContent = '請說出景點名稱，例如：駁二停車。';
-    rec.onresult = e => { input.value = e.results[0][0].transcript; submit(); };
-    rec.onerror = () => { if(msg) msg.textContent = '語音辨識失敗，請再試一次或改用文字輸入。'; };
-    rec.start();
-  });
 }
 document.addEventListener('DOMContentLoaded',()=>{renderHome();renderPage();bindSearch();});
