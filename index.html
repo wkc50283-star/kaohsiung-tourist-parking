@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>高雄觀光景點停車即時推薦</title>
+  <meta name="description" content="快速查看高雄熱門觀光景點附近哪裡有車位、距離、價格、付款方式與 Google Maps 導航。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar"><a class="brand" href="index.html">高雄停車</a><a class="small-link" href="#sites">景點列表</a></div>
+    <h1>高雄觀光景點停車即時推薦</h1>
+    <p>說出或輸入景點名稱，快速查看附近停車場。</p>
+    <div class="searchbox">
+      <div class="search-row">
+        <input id="searchInput" type="search" inputmode="search" placeholder="輸入或說出景點名稱，例如：駁二停車">
+        <button id="voiceBtn" class="btn secondary" type="button">🎙️ 語音搜尋</button>
+        <button id="searchBtn" class="btn" type="button">搜尋</button>
+      </div>
+      <div class="chips">
+        <a class="chip" href="pier2-parking.html">駁二</a>
+        <a class="chip" href="kaohsiung-music-center-parking.html">高流</a>
+        <a class="chip" href="cijin-parking.html">旗津</a>
+        <a class="chip" href="xiziwan-parking.html">西子灣</a>
+        <a class="chip" href="weiwuying-parking.html">衛武營</a>
+      </div>
+      <p id="searchMsg" class="empty"></p>
+    </div>
+  </div>
+</header>
+<main class="wrap section" id="sites">
+  <h2>高雄觀光景點</h2>
+  <div id="site-list"></div>
+</main>
+<footer class="footer wrap">資料為第一版示範架構，實際價格與付款方式請以現場公告為準。</footer>
+<script src="data.js"></script><script src="script.js"></script>
+</body>
+</html>
