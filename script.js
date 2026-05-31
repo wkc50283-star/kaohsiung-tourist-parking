@@ -85,15 +85,12 @@ function renderLotCard(lot){
     <p class="priority-line">📍 ${distance}</p>
     <p class="quick-facts"><span>💵 ${lot.cash || '付款方式待確認'}</span><span>💰 平日 ${lot.weekday || '需確認'}</span></p>
     <p>${lot.note || ''}</p>
-    <details class="more-info">
-      <summary>更多資訊</summary>
-      <div class="facts">
-        <div class="fact"><span class="label">假日價格</span>${lot.holiday}</div>
-        <div class="fact"><span class="label">電子支付</span>${lot.epay}</div>
-        <div class="fact"><span class="label">車牌辨識</span>${lot.plate}</div>
-        <div class="fact"><span class="label">更新時間</span>${lot.updated}</div>
-      </div>
-    </details>
+    <div class="info-strip" aria-label="停車場補充資訊">
+      <span class="info-pill">假日 ${lot.holiday || '需確認'}</span>
+      <span class="info-pill">電子支付 ${lot.epay || '需確認'}</span>
+      <span class="info-pill">車牌辨識 ${lot.plate || '需確認'}</span>
+      <span class="info-pill muted-pill">更新 ${lot.updated || '需確認'}</span>
+    </div>
     <a class="btn maps compact" target="_blank" rel="noopener" href="${lot.maps}">📍 Google Maps</a>
   </article>`;
 }
