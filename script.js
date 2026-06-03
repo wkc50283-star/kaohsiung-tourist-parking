@@ -13,9 +13,19 @@ function findSiteByQuery(q){
   if(!n) return null;
   return SITES.find(s => normalize(s.name).includes(n) || n.includes(normalize(s.name)) || s.keywords.some(k=>normalize(k).includes(n) || n.includes(normalize(k))));
 }
+function homeCategory(site){
+  if(['pier2','kmc','love-river'].includes(site.id)) return '港區／亞灣';
+  if(['xiziwan','cijin'].includes(site.id)) return '渡輪／海岸周邊';
+  if(['weiwuying','formosa'].includes(site.id)) return '場館／活動區';
+  return '其他地點';
+}
 function renderHome(){
   const groups = {};
-  SITES.forEach(s => { groups[s.category] ??= []; groups[s.category].push(s); });
+  SITES.forEach(s => {
+    const category = homeCategory(s);
+    groups[category] ??= [];
+    groups[category].push(s);
+  });
   const root = document.querySelector('#site-list');
   if(!root) return;
   root.innerHTML = Object.entries(groups).map(([cat,items])=>`
@@ -23,7 +33,7 @@ function renderHome(){
     <div class="grid">${items.map(s=>`
       <a class="site-card" href="${s.slug}">
         <h3>${s.name}</h3>
-        <p>查看附近停車場與可嘗試路段</p>
+        <p>查看附近停車場、車位狀態與導航</p>
       </a>`).join('')}</div>`).join('');
 }
 function renderPage(){
@@ -104,7 +114,7 @@ function bindCurrentLocation(){
       const lng = Number(position.coords.longitude).toFixed(6);
       const meters = Math.round(position.coords.accuracy || 0);
       sessionStorage.setItem('parking_user_location', JSON.stringify({lat:Number(lat), lng:Number(lng), updatedAt:Date.now()}));
-      if(msg) msg.textContent = '定位完成。';
+      if(msg) msg.textContent = '';
       if(accuracy) accuracy.textContent = meters > 0 ? `定位精度約 ${meters} 公尺` : '';
       if(nearbyLink){
         nearbyLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`停車場 near ${lat},${lng}`)}`;
