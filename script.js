@@ -1,4 +1,4 @@
-function normalize(text){return (text||'').toLowerCase().replace(/停車|停車場|即時|推薦|景點|\s/g,'');}
+function normalize(text){return (text||'').toLowerCase().replace(/停車|停車場|即時|推薦|景點|地點|\s/g,'');}
 function statusLabel(status){
   if(status==='available') return ['🟢 有車位','available'];
   if(status==='full') return ['🔴 可能已滿','full'];
@@ -31,7 +31,7 @@ function renderPage(){
   const parkingRoot = document.querySelector('#parking-list');
   const roadRoot = document.querySelector('#road-list');
   if(!site || !parkingRoot) return;
-  document.title = `${site.title}｜高雄觀光景點停車推薦`;
+  document.title = `${site.title}｜高雄熱門地點停車推薦`;
   document.querySelector('#page-title').textContent = site.title;
   document.querySelector('#page-intro').textContent = site.intro;
   document.querySelector('#page-keywords').textContent = site.keywords.join('、');
@@ -70,9 +70,60 @@ function bindSearch(){
   function submit(){
     const site = findSiteByQuery(input.value);
     if(site) location.href = site.slug;
-    else if(msg) msg.textContent = '目前找不到這個景點，請試試：駁二、高流、旗津、西子灣。';
+    else if(msg) msg.textContent = '目前找不到這個地點，請試試：駁二、高流、旗津、西子灣。';
   }
   go?.addEventListener('click', submit);
   input.addEventListener('keydown', e=>{ if(e.key==='Enter') submit(); });
 }
-document.addEventListener('DOMContentLoaded',()=>{renderHome();renderPage();bindSearch();});
+function bindCurrentLocation(){
+  const button = document.querySelector('#locationBtn');
+  const msg = document.querySelector('#locationMsg');
+  const result = document.querySelector('#locationResult');
+  const accuracy = document.querySelector('#locationAccuracy');
+  const nearbyLink = document.querySelector('#nearbyParkingMaps');
+  if(!button) return;
+
+  function restoreButton(){
+    button.disabled = false;
+    button.textContent = '📍 使用目前位置';
+  }
+
+  button.addEventListener('click', ()=>{
+    if(!navigator.geolocation){
+      if(msg) msg.textContent = '這台裝置或瀏覽器暫不支援定位。';
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = '定位中…';
+    if(msg) msg.textContent = '請允許網站取得你目前的位置。';
+    result?.classList.add('hidden');
+
+    navigator.geolocation.getCurrentPosition(position=>{
+      const lat = Number(position.coords.latitude).toFixed(6);
+      const lng = Number(position.coords.longitude).toFixed(6);
+      const meters = Math.round(position.coords.accuracy || 0);
+      sessionStorage.setItem('parking_user_location', JSON.stringify({lat:Number(lat), lng:Number(lng), updatedAt:Date.now()}));
+      if(msg) msg.textContent = '定位完成。';
+      if(accuracy) accuracy.textContent = meters > 0 ? `定位精度約 ${meters} 公尺` : '';
+      if(nearbyLink){
+        nearbyLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`停車場 near ${lat},${lng}`)}`;
+      }
+      result?.classList.remove('hidden');
+      restoreButton();
+    }, error=>{
+      const messages = {
+        1: '你尚未允許定位權限，請改用地點搜尋。',
+        2: '目前無法取得位置，請稍後再試或改用地點搜尋。',
+        3: '定位逾時，請再試一次或改用地點搜尋。'
+      };
+      if(msg) msg.textContent = messages[error.code] || '目前無法取得位置，請改用地點搜尋。';
+      restoreButton();
+    }, {
+      enableHighAccuracy: true,
+      timeout: 8000,
+      maximumAge: 0
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded',()=>{renderHome();renderPage();bindSearch();bindCurrentLocation();});
