@@ -13,11 +13,9 @@ function findSiteByQuery(q){
   if(!n) return null;
   return SITES.find(s => normalize(s.name).includes(n) || n.includes(normalize(s.name)) || s.keywords.some(k=>normalize(k).includes(n) || n.includes(normalize(k))));
 }
+const HOME_CATEGORY_ORDER = ['港區／亞灣','商圈／百貨','夜市／活動區','熱門生活圈','其他地點'];
 function homeCategory(site){
-  if(['pier2','kmc','love-river'].includes(site.id)) return '港區／亞灣';
-  if(['xiziwan','cijin'].includes(site.id)) return '渡輪／海岸周邊';
-  if(['weiwuying','formosa'].includes(site.id)) return '場館／活動區';
-  return '其他地點';
+  return site.category || '其他地點';
 }
 function renderHome(){
   const groups = {};
@@ -28,9 +26,11 @@ function renderHome(){
   });
   const root = document.querySelector('#site-list');
   if(!root) return;
-  root.innerHTML = Object.entries(groups).map(([cat,items])=>`
+  root.innerHTML = HOME_CATEGORY_ORDER
+    .filter(cat => groups[cat]?.length)
+    .map(cat=>`
     <h2 class="category">${cat}</h2>
-    <div class="grid">${items.map(s=>`
+    <div class="grid">${groups[cat].map(s=>`
       <a class="site-card" href="${s.slug}">
         <h3>${s.name}</h3>
         <p>查看附近停車場、車位狀態與導航</p>
@@ -45,7 +45,7 @@ function renderPage(){
   document.querySelector('#page-title').textContent = site.title;
   document.querySelector('#page-intro').textContent = site.intro;
   document.querySelector('#page-keywords').textContent = site.keywords.join('、');
-  parkingRoot.innerHTML = site.lots.map(lot=>{
+  parkingRoot.innerHTML = site.lots.length ? site.lots.map(lot=>{
     const [txt, cls] = statusLabel(lot.status);
     const paymentBadges = [lot.epay, lot.plate].filter(Boolean).map(v=>`<span>${v}</span>`).join('');
     return `<article class="parking-card decision-card">
@@ -60,7 +60,7 @@ function renderPage(){
       <div class="mini-tags">${paymentBadges}</div>
       <p class="card-note">${lot.note || ''}</p>
     </article>`;
-  }).join('');
+  }).join('') : '<p class="empty">目前正在整理附近停車場資料，完成後會補上空位狀態、距離與導航。</p>';
   if(roadRoot){
     const roads = site.roads || [];
     roadRoot.innerHTML = roads.map(r=>`
@@ -80,7 +80,7 @@ function bindSearch(){
   function submit(){
     const site = findSiteByQuery(input.value);
     if(site) location.href = site.slug;
-    else if(msg) msg.textContent = '目前找不到這個地點，請試試：駁二、高流、旗津、西子灣。';
+    else if(msg) msg.textContent = '目前找不到這個地點，請試試：駁二、高流、巨蛋、瑞豐夜市、新堀江。';
   }
   go?.addEventListener('click', submit);
   input.addEventListener('keydown', e=>{ if(e.key==='Enter') submit(); });

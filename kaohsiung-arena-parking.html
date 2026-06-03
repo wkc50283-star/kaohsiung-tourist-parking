@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>高雄熱門地點停車推薦</title>
+  <meta name="description" content="快速查看高雄熱門地點附近停車場、車位狀態與導航。">
+  <link rel="stylesheet" href="style.css?v=9">
+</head>
+<body>
+<header class="page-head wrap">
+  <div class="topbar"><a class="brand" href="index.html">高雄停車</a><a class="small-link" href="index.html">回首頁</a></div>
+  <h1 id="page-title">熱門地點停車場推薦</h1>
+  <p id="page-intro"></p>
+  <div class="notice">先看附近停車場，再參考可嘗試路邊停車路段。車位狀態僅依可取得資料呈現，不保證抵達時仍有車位。</div>
+  <p class="keyword-line">相關搜尋：<span id="page-keywords"></span></p>
+</header>
+<main class="wrap">
+  <section class="result-section">
+    <h2 class="section-title">附近停車場</h2>
+    <div id="parking-list" class="grid"></div>
+  </section>
+  <section class="result-section">
+    <h2 class="section-title">可嘗試路邊停車路段</h2>
+    <p class="section-note">路邊停車格無即時空位資料，請看現場標線與告示。</p>
+    <div id="road-list" class="grid"></div>
+  </section>
+</main>
+<footer class="footer wrap">車位狀態、價格與付款方式可能變動，請以現場公告為準。</footer>
+<script src="data.js?v=10"></script><script src="script.js?v=10"></script>
+</body>
+</html>
