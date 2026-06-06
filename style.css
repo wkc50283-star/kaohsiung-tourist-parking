@@ -1090,3 +1090,157 @@ input::placeholder {
     transition: none !important;
   }
 }
+
+/* =========================
+   首頁 Hero 與卡片緊湊化
+   - 首頁圖片左右與搜尋卡對齊
+   - Hero 區降低高度
+   - 首頁熱門地點卡片與停車結果卡片再扁一些
+========================= */
+
+.home-hero {
+  width: min(calc(100% - 28px), calc(var(--content-width) - 28px));
+  margin: -18px auto 0;
+  padding: 56px 18px 82px;
+  border-radius: 0 0 26px 26px;
+  background-position: 56% center;
+}
+
+.home-hero::after {
+  height: 60px;
+}
+
+.home-main .search-card,
+.homepage-main .homepage-action-panel {
+  margin-top: -52px;
+}
+
+@media (max-width: 520px) {
+  .home-hero {
+    width: calc(100% - 28px);
+    margin-top: -18px;
+    padding: 50px 16px 72px;
+    border-radius: 0 0 22px 22px;
+    background-position: 58% center;
+  }
+
+  .home-hero::after {
+    height: 52px;
+  }
+
+  .home-hero .hero-title {
+    font-size: clamp(31px, 8.8vw, 40px);
+  }
+
+  .home-hero .hero-question {
+    margin-top: 14px;
+    font-size: clamp(20px, 5.4vw, 24px);
+  }
+
+  .home-hero .hero-description {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .home-main .search-card,
+  .homepage-main .homepage-action-panel {
+    margin-top: -46px;
+  }
+
+  .hotspot-card,
+  .category-card {
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    min-height: 68px;
+    padding: 7px 10px 7px 8px;
+    gap: 9px;
+    border-radius: 16px;
+  }
+
+  .hotspot-card__icon,
+  .category-card__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-size: 22px;
+  }
+
+  .hotspot-card__title,
+  .category-card__title {
+    font-size: 17px;
+  }
+
+  .hotspot-card__intro,
+  .category-card__intro {
+    display: -webkit-box;
+    margin-top: 2px;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .parking-results,
+  .result-list {
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .parking-card {
+    padding: 11px;
+    border-radius: 16px;
+  }
+
+  .parking-card__title {
+    margin-top: 5px;
+    font-size: 18px;
+    line-height: 1.28;
+  }
+
+  .parking-distance,
+  .parking-card__distance {
+    margin-top: 4px;
+    font-size: 14px;
+  }
+
+  .parking-card__details {
+    gap: 4px 8px;
+    margin-top: 8px;
+    padding-top: 7px;
+  }
+
+  .parking-card__details dt {
+    font-size: 11px;
+  }
+
+  .parking-card__details dd {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .parking-card__details div:last-child dd {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .parking-navigation-button {
+    min-height: 40px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .page-note {
+    margin-top: 13px;
+    padding: 13px;
+  }
+
+  .page-note p {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+}
