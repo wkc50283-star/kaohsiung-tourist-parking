@@ -1,122 +1,66 @@
 /**
  * script.js
- * 高雄熱門地點停車推薦網站：首頁控制程式
+ * 高雄停車推薦網站：首頁控制程式
  *
  * 本檔案只服務 index.html。
  *
- * 責任：
- * 1. 顯示已通過測試並啟用的熱門地點
- * 2. 提供首頁地點搜尋
- * 3. 提供關鍵字比對
- * 4. 讓使用者主動取得一次性定位
- * 5. 將目前座標帶至 nearby.html
+ * 首頁功能：
+ * 1. 顯示已完成測試並正式開放的熱門地點
+ * 2. 搜尋熱門地點
+ * 3. 按下「查看附近停車場」後取得一次性定位
+ * 4. 將座標帶至 nearby.html
  *
- * 本檔案不得再處理：
- * - 熱門地點頁面即時資料
- * - TDX 停車場資料
- * - 人工整理停車場 lots
- * - 路邊停車 roads
- * - 人工價格
- * - 付款方式
- * - 車牌辨識
- * - 舊版停車卡片
+ * 隱私原則：
+ * - 不使用 watchPosition
+ * - 不持續追蹤位置
+ * - 不將座標存入 localStorage
+ * - 不將座標存入 sessionStorage
+ * - 座標只透過網址參數暫時帶入 nearby.html
+ * - nearby.js 讀取後會立即移除網址中的座標參數
  */
 
 (function (global) {
   "use strict";
 
-  /**
-   * 首頁可能仍保留部分舊版 HTML。
-   *
-   * 為避免改檔過程中因 id 名稱略有不同而整頁失效，
-   * 這裡允許依序尋找多種常見選擇器。
-   *
-   * 後續整理 index.html 時，
-   * 將統一改用每組第一個正式 id。
-   */
   const SELECTORS = Object.freeze({
-    searchInput: [
-      "#hotspot-search-input",
-      "#search-input",
-      "#location-search",
-      "#searchInput",
-      "input[type='search']"
-    ],
-
-    searchButton: [
-      "#hotspot-search-button",
-      "#search-button",
-      "#searchButton",
-      "button[data-action='search-hotspot']"
-    ],
-
-    hotspotList: [
-      "#hotspot-list",
-      "#popular-hotspots",
-      "#location-list",
-      "#hotspot-results"
-    ],
-
-    searchMessage: [
-      "#homepage-message",
-      "#search-message",
-      "#search-status"
-    ],
-
-    useCurrentLocationButton: [
-      "#use-current-location-button",
-      "#current-location-button",
-      "#location-button",
-      "button[data-action='use-current-location']"
-    ],
-
-    locationStatus: [
-      "#location-status",
-      "#current-location-status",
-      "#geolocation-status"
-    ],
-
-    viewNearbyButton: [
-      "#view-nearby-button",
-      "#open-nearby-button",
-      "a[data-action='view-nearby']",
-      "button[data-action='view-nearby']"
-    ]
+    searchInput: "#hotspot-search-input",
+    searchButton: "#hotspot-search-button",
+    searchMessage: "#homepage-message",
+    hotspotList: "#hotspot-list",
+    nearbyButton: "#view-nearby-button",
+    locationStatus: "#location-status"
   });
 
-  const LOCATION_OPTIONS = Object.freeze({
+  const GEOLOCATION_OPTIONS = Object.freeze({
     enableHighAccuracy: true,
     timeout: 12000,
     maximumAge: 0
   });
 
   /**
-   * 定位誤差超過 500 公尺時，
-   * 不直接帶使用者前往附近停車場頁面。
+   * 若定位誤差超過 500 公尺，
+   * 不直接帶使用者進入附近停車場頁面。
    */
   const MAXIMUM_ACCEPTED_ACCURACY_METERS = 500;
 
-  let enabledHotspots = [];
-  let currentLocation = null;
-
   /**
-   * 找到第一個存在的 HTML 元素。
+   * 高雄市及周邊合理座標範圍。
+   * 用來避免定位偏移或使用者位於服務範圍外。
    */
-  function findElement(selectorCandidates) {
-    for (const selector of selectorCandidates) {
-      const element = document.querySelector(selector);
+  const KAOHSIUNG_BOUNDS = Object.freeze({
+    minLatitude: 22.45,
+    maxLatitude: 23.55,
+    minLongitude: 120.0,
+    maxLongitude: 120.95
+  });
 
-      if (element) {
-        return element;
-      }
-    }
+  let enabledHotspots = [];
+  let isLocating = false;
 
-    return null;
+  function getElement(selector) {
+    return document.querySelector(selector);
   }
 
-  /**
-   * 避免資料內容破壞 HTML。
-   */
   function escapeHtml(value) {
     return String(value ?? "")
       .replace(/&/g, "&amp;")
@@ -126,9 +70,6 @@
       .replace(/'/g, "&#039;");
   }
 
-  /**
-   * 統一搜尋文字格式。
-   */
   function normalizeText(value) {
     return String(value || "")
       .toLowerCase()
@@ -136,9 +77,6 @@
       .replace(/[／/｜|、，,。．.（）()－\-_]/g, "");
   }
 
-  /**
-   * 將熱門地點資料轉換為可搜尋文字。
-   */
   function buildSearchableText(hotspot) {
     return normalizeText(
       [
@@ -152,11 +90,8 @@
     );
   }
 
-  /**
-   * 顯示首頁訊息。
-   */
-  function setHomepageMessage(message, type) {
-    const element = findElement(
+  function setSearchMessage(message, type) {
+    const element = getElement(
       SELECTORS.searchMessage
     );
 
@@ -165,18 +100,12 @@
     }
 
     element.textContent = message || "";
-
-    element.dataset.statusType =
-      type || "info";
-
+    element.dataset.statusType = type || "info";
     element.hidden = !message;
   }
 
-  /**
-   * 顯示定位狀態。
-   */
   function setLocationStatus(message, type) {
-    const element = findElement(
+    const element = getElement(
       SELECTORS.locationStatus
     );
 
@@ -185,66 +114,49 @@
     }
 
     element.textContent = message || "";
-
-    element.dataset.statusType =
-      type || "info";
-
+    element.dataset.statusType = type || "info";
     element.hidden = !message;
   }
 
-  /**
-   * 顯示按鈕忙碌狀態。
-   */
-  function setLocationButtonBusy(isBusy) {
-    const button = findElement(
-      SELECTORS.useCurrentLocationButton
+  function setNearbyButtonBusy(isBusy) {
+    const button = getElement(
+      SELECTORS.nearbyButton
     );
 
     if (!button) {
       return;
     }
 
-    button.disabled = isBusy;
+    button.disabled = Boolean(isBusy);
 
     button.setAttribute(
       "aria-busy",
-      String(isBusy)
+      String(Boolean(isBusy))
     );
 
     button.textContent = isBusy
       ? "正在取得目前位置…"
-      : "使用目前位置";
+      : "查看附近停車場";
   }
 
-  /**
-   * 熱門地點卡片。
-   */
   function createHotspotCardHtml(hotspot) {
     return `
       <a
         class="hotspot-card"
         href="${escapeHtml(hotspot.slug)}"
-        aria-label="查看${escapeHtml(
-          hotspot.title
-        )}"
+        aria-label="查看${escapeHtml(hotspot.title)}"
       >
         <div class="hotspot-card__content">
           <p class="hotspot-card__category">
-            ${escapeHtml(
-              hotspot.category
-            )}
+            ${escapeHtml(hotspot.category)}
           </p>
 
           <h3 class="hotspot-card__title">
-            ${escapeHtml(
-              hotspot.name
-            )}
+            ${escapeHtml(hotspot.name)}
           </h3>
 
           <p class="hotspot-card__intro">
-            ${escapeHtml(
-              hotspot.intro
-            )}
+            ${escapeHtml(hotspot.intro)}
           </p>
         </div>
 
@@ -255,11 +167,8 @@
     `.trim();
   }
 
-  /**
-   * 顯示熱門地點清單。
-   */
   function renderHotspotList(hotspots) {
-    const container = findElement(
+    const container = getElement(
       SELECTORS.hotspotList
     );
 
@@ -267,15 +176,13 @@
       return;
     }
 
-    if (!Array.isArray(hotspots)) {
-      container.innerHTML = "";
-      return;
-    }
-
-    if (hotspots.length === 0) {
+    if (
+      !Array.isArray(hotspots) ||
+      hotspots.length === 0
+    ) {
       container.innerHTML = `
         <p class="empty-state">
-          目前沒有符合條件且已完成測試的熱門地點。
+          目前尚無已完成測試的熱門地點。
         </p>
       `.trim();
 
@@ -287,12 +194,6 @@
       .join("\n");
   }
 
-  /**
-   * 搜尋已啟用熱門地點。
-   *
-   * 尚未測試通過的地點不會出現在首頁，
-   * 也不會透過搜尋入口提前公開。
-   */
   function filterHotspots(query) {
     const normalizedQuery =
       normalizeText(query);
@@ -315,10 +216,8 @@
         let priority = 999;
 
         if (
-          normalizedName ===
-            normalizedQuery ||
-          normalizedTitle ===
-            normalizedQuery
+          normalizedName === normalizedQuery ||
+          normalizedTitle === normalizedQuery
         ) {
           priority = 1;
         } else if (
@@ -347,17 +246,13 @@
         (item) => item.priority < 999
       )
       .sort(
-        (a, b) =>
-          a.priority - b.priority
+        (a, b) => a.priority - b.priority
       )
       .map((item) => item.hotspot);
   }
 
-  /**
-   * 即時篩選首頁卡片。
-   */
   function handleSearchInput() {
-    const input = findElement(
+    const input = getElement(
       SELECTORS.searchInput
     );
 
@@ -367,18 +262,19 @@
 
     const query = input.value.trim();
 
+    if (!query) {
+      renderHotspotList(enabledHotspots);
+      setSearchMessage("", "info");
+      return;
+    }
+
     const matches =
       filterHotspots(query);
 
     renderHotspotList(matches);
 
-    if (!query) {
-      setHomepageMessage("", "info");
-      return;
-    }
-
     if (matches.length === 0) {
-      setHomepageMessage(
+      setSearchMessage(
         "目前尚未開放這個熱門地點。網站只顯示已完成即時資料測試的地點。",
         "warning"
       );
@@ -386,25 +282,18 @@
       return;
     }
 
-    setHomepageMessage(
+    setSearchMessage(
       `找到 ${matches.length} 個已完成測試的熱門地點。`,
       "success"
     );
   }
 
-  /**
-   * 使用搜尋按鈕時：
-   *
-   * - 若只有一筆符合結果，直接進入該地點頁面。
-   * - 若有多筆結果，留在首頁顯示篩選結果。
-   * - 若查無已啟用地點，誠實顯示尚未開放。
-   */
   function handleSearchSubmit(event) {
     if (event) {
       event.preventDefault();
     }
 
-    const input = findElement(
+    const input = getElement(
       SELECTORS.searchInput
     );
 
@@ -412,14 +301,9 @@
       ? input.value.trim()
       : "";
 
-    const matches =
-      filterHotspots(query);
-
-    renderHotspotList(matches);
-
     if (!query) {
-      setHomepageMessage(
-        "請輸入想前往的高雄熱門地點。",
+      setSearchMessage(
+        "請先輸入想前往的高雄熱門地點。",
         "warning"
       );
 
@@ -430,8 +314,13 @@
       return;
     }
 
+    const matches =
+      filterHotspots(query);
+
+    renderHotspotList(matches);
+
     if (matches.length === 0) {
-      setHomepageMessage(
+      setSearchMessage(
         "目前尚未開放這個熱門地點。網站只顯示已完成即時資料測試的地點。",
         "warning"
       );
@@ -446,46 +335,28 @@
       return;
     }
 
-    setHomepageMessage(
-      `找到 ${matches.length} 個已完成測試的熱門地點，請選擇要查看的頁面。`,
+    setSearchMessage(
+      `找到 ${matches.length} 個已完成測試的熱門地點，請選擇要查看的地點。`,
       "success"
     );
   }
 
-  /**
-   * 確認座標是否落在高雄及周邊合理範圍。
-   */
   function isCoordinateInsideKaohsiungBounds(
     latitude,
     longitude
   ) {
-    const bounds =
-      global.ParkingCore &&
-      global.ParkingCore.DEFAULT_CONFIG
-        ? global.ParkingCore.DEFAULT_CONFIG
-            .kaohsiungBounds
-        : {
-            minLatitude: 22.45,
-            maxLatitude: 23.55,
-            minLongitude: 120.0,
-            maxLongitude: 120.95
-          };
-
     return (
-      latitude >= bounds.minLatitude &&
-      latitude <= bounds.maxLatitude &&
-      longitude >= bounds.minLongitude &&
-      longitude <= bounds.maxLongitude
+      latitude >=
+        KAOHSIUNG_BOUNDS.minLatitude &&
+      latitude <=
+        KAOHSIUNG_BOUNDS.maxLatitude &&
+      longitude >=
+        KAOHSIUNG_BOUNDS.minLongitude &&
+      longitude <=
+        KAOHSIUNG_BOUNDS.maxLongitude
     );
   }
 
-  /**
-   * 取得一次性定位。
-   *
-   * 不使用 watchPosition。
-   * 不保存座標。
-   * 不持續追蹤位置。
-   */
   function requestOneTimeLocation() {
     return new Promise(
       (resolve, reject) => {
@@ -494,7 +365,7 @@
         ) {
           reject(
             new Error(
-              "目前瀏覽器不支援定位功能。請改用熱門地點搜尋。"
+              "目前瀏覽器不支援定位功能，請改用熱門地點搜尋。"
             )
           );
 
@@ -522,7 +393,7 @@
             ) {
               reject(
                 new Error(
-                  "尚未取得定位權限。請允許瀏覽器使用目前位置，或改用熱門地點搜尋。"
+                  "尚未取得定位權限，請允許瀏覽器使用目前位置。"
                 )
               );
 
@@ -535,7 +406,7 @@
             ) {
               reject(
                 new Error(
-                  "目前無法取得位置。請確認手機定位服務已開啟，再重新嘗試。"
+                  "目前無法取得位置，請確認手機定位服務已開啟。"
                 )
               );
 
@@ -548,7 +419,7 @@
             ) {
               reject(
                 new Error(
-                  "定位等候時間過久。請移至訊號較佳的位置後重新嘗試。"
+                  "定位等候時間過久，請移至訊號較佳的位置後再試一次。"
                 )
               );
 
@@ -562,90 +433,39 @@
             );
           },
 
-          LOCATION_OPTIONS
+          GEOLOCATION_OPTIONS
         );
       }
     );
   }
 
-  /**
-   * 建立前往 nearby.html 的網址。
-   *
-   * 座標只會存在於網址參數中。
-   * nearby.js 讀取後會立即從瀏覽器網址列移除。
-   */
   function buildNearbyUrl(location) {
-    const params = new URLSearchParams({
-      lat: String(location.latitude),
-      lng: String(location.longitude),
-      accuracy: String(
-        location.accuracy ?? ""
-      )
-    });
+    const params =
+      new URLSearchParams({
+        lat: String(
+          location.latitude
+        ),
+
+        lng: String(
+          location.longitude
+        ),
+
+        accuracy: String(
+          location.accuracy ?? ""
+        )
+      });
 
     return `nearby.html?${params.toString()}`;
   }
 
-  /**
-   * 顯示或建立「查看附近停車場」按鈕。
-   */
-  function prepareViewNearbyButton(location) {
-    let button = findElement(
-      SELECTORS.viewNearbyButton
-    );
-
-    const url = buildNearbyUrl(location);
-
-    if (button) {
-      if (
-        button.tagName.toLowerCase() ===
-        "a"
-      ) {
-        button.href = url;
-      } else {
-        button.onclick = () => {
-          global.location.href = url;
-        };
-      }
-
-      button.hidden = false;
-      button.removeAttribute("disabled");
-
+  async function handleNearbyButtonClick() {
+    if (isLocating) {
       return;
     }
 
-    const status = findElement(
-      SELECTORS.locationStatus
-    );
+    isLocating = true;
 
-    if (!status || !status.parentElement) {
-      global.location.href = url;
-      return;
-    }
-
-    button =
-      document.createElement("a");
-
-    button.id = "view-nearby-button";
-    button.className =
-      "view-nearby-button";
-
-    button.href = url;
-
-    button.textContent =
-      "查看附近停車場";
-
-    status.insertAdjacentElement(
-      "afterend",
-      button
-    );
-  }
-
-  /**
-   * 使用者主動按下定位按鈕。
-   */
-  async function handleUseCurrentLocation() {
-    setLocationButtonBusy(true);
+    setNearbyButtonBusy(true);
 
     setLocationStatus(
       "正在取得目前位置…",
@@ -663,57 +483,49 @@
         )
       ) {
         throw new Error(
-          "目前位置不在高雄市服務範圍內。請改用熱門地點搜尋。"
+          "目前位置不在高雄市服務範圍內，請改用熱門地點搜尋。"
         );
       }
 
       if (
-        Number.isFinite(location.accuracy) &&
+        Number.isFinite(
+          location.accuracy
+        ) &&
         location.accuracy >
           MAXIMUM_ACCEPTED_ACCURACY_METERS
       ) {
         throw new Error(
           `目前定位誤差約 ±${Math.round(
             location.accuracy
-          )} 公尺，精準度不足。請移至較空曠處重新定位，或改用熱門地點搜尋。`
+          )} 公尺，精準度不足。請移至較空曠處後再試一次。`
         );
       }
-
-      currentLocation = {
-        latitude: location.latitude,
-        longitude: location.longitude,
-        accuracy: location.accuracy
-      };
 
       setLocationStatus(
         `已取得目前位置，定位誤差約 ±${Math.round(
           location.accuracy || 0
-        )} 公尺。`,
+        )} 公尺。正在開啟附近停車場…`,
         "success"
       );
 
-      prepareViewNearbyButton(
-        currentLocation
-      );
+      global.location.href =
+        buildNearbyUrl(location);
     } catch (error) {
-      currentLocation = null;
-
       setLocationStatus(
         error && error.message
           ? error.message
           : "暫時無法取得目前位置，請稍後再試。",
         "warning"
       );
-    } finally {
-      setLocationButtonBusy(false);
+
+      setNearbyButtonBusy(false);
+
+      isLocating = false;
     }
   }
 
-  /**
-   * 加入搜尋自動完成提示。
-   */
   function attachSearchSuggestions() {
-    const input = findElement(
+    const input = getElement(
       SELECTORS.searchInput
     );
 
@@ -756,20 +568,17 @@
     );
   }
 
-  /**
-   * 綁定首頁操作。
-   */
   function bindEvents() {
-    const searchInput = findElement(
+    const searchInput = getElement(
       SELECTORS.searchInput
     );
 
-    const searchButton = findElement(
+    const searchButton = getElement(
       SELECTORS.searchButton
     );
 
-    const locationButton = findElement(
-      SELECTORS.useCurrentLocationButton
+    const nearbyButton = getElement(
+      SELECTORS.nearbyButton
     );
 
     if (searchInput) {
@@ -795,17 +604,14 @@
       );
     }
 
-    if (locationButton) {
-      locationButton.addEventListener(
+    if (nearbyButton) {
+      nearbyButton.addEventListener(
         "click",
-        handleUseCurrentLocation
+        handleNearbyButtonClick
       );
     }
   }
 
-  /**
-   * 初始化首頁。
-   */
   function init() {
     if (
       !global.KaohsiungParkingData
