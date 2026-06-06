@@ -2,93 +2,63 @@
 <html lang="zh-Hant-TW">
   <head>
     <meta charset="UTF-8">
-
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     >
-
-    <meta
-      name="robots"
-      content="index,follow"
-    >
-
+    <meta name="robots" content="index,follow">
     <meta
       name="description"
-      content="快速查看駁二藝術特區、棧貳庫與大港橋附近路外停車場即時剩餘空位、距離、更新時間與 Google 地圖導航。"
+      content="快速查看駁二、棧貳庫與大港橋附近路外停車場即時剩餘空位、距離與導航。"
     >
 
-    <title>
-      駁二停車場推薦｜附近停車場、即時剩餘空位與導航
-    </title>
+    <title>駁二停車場推薦｜附近即時空位與導航</title>
 
     <link
       rel="canonical"
       href="https://wkc50283-star.github.io/kaohsiung-tourist-parking/pier2-parking.html"
     >
 
-    <link
-      rel="stylesheet"
-      href="style.css"
-    >
+    <link rel="stylesheet" href="style-v4.css">
   </head>
 
   <body>
     <header class="site-header">
       <div class="site-header__inner">
-        <a
-          class="site-brand"
-          href="index.html"
-        >
-          高雄熱門地點停車推薦
+        <a class="site-brand" href="index.html">
+          <span>高雄停車</span>
         </a>
 
-        <a
-          class="site-header__back-link"
-          href="index.html"
-        >
+        <a class="site-header__back-link" href="index.html">
           回首頁
         </a>
       </div>
     </header>
 
-    <main class="page-shell">
-      <section class="page-hero">
-        <p class="page-eyebrow">
-          高雄熱門地點停車
-        </p>
-
-        <h1
-          id="hotspot-title"
-          class="page-title"
-        >
-          駁二停車場推薦
-        </h1>
-
-        <p
-          id="hotspot-intro"
-          class="page-intro"
-        >
-          快速查看駁二附近路外停車場即時剩餘空位、距離與導航。
-        </p>
-      </section>
-
+    <main class="result-main result-main--direct">
       <section
-        class="parking-section"
-        aria-labelledby="parking-section-title"
+        class="parking-section parking-section--direct"
+        aria-labelledby="hotspot-title"
       >
-        <div class="section-heading">
-          <div>
+        <div class="section-heading result-heading">
+          <div class="result-heading__copy">
             <p class="page-eyebrow">
               即時路外停車場
             </p>
 
-            <h2
-              id="parking-section-title"
-              class="section-title"
+            <h1
+              id="hotspot-title"
+              class="result-page-title"
             >
-              駁二附近停車場
-            </h2>
+              駁二停車場推薦
+            </h1>
+
+            <p
+              id="hotspot-intro"
+              class="result-page-intro"
+            >
+              快速比較駁二附近路外停車場的剩餘空位、距離與更新時間。
+            </p>
           </div>
 
           <button
@@ -96,7 +66,7 @@
             class="secondary-button"
             type="button"
           >
-            重新整理即時資料
+            重新整理
           </button>
         </div>
 
@@ -105,7 +75,7 @@
           class="status-message"
           aria-live="polite"
         >
-          正在讀取附近路外停車場即時資料…
+          正在讀取即時車位…
         </p>
 
         <p
@@ -139,28 +109,20 @@
         </h2>
 
         <p>
-          本站只顯示具備明確座標、可直接導航且仍有空位的路外停車場，不提供路邊停車格或無法確認位置的停車建議。
-        </p>
-
-        <p>
-          停車場依距離駁二的直線距離由近到遠排列。實際開車路線、路況與行車時間，請以 Google 地圖顯示為準。
-        </p>
-
-        <p>
-          即時剩餘空位可能因車輛進出而變動，出發前仍請再次確認最新狀態。
+          距離為直線距離，實際開車路線與行車時間請以 Google 地圖為準。即時空位可能隨車輛進出變動，實際狀況請以現場為準。
         </p>
       </section>
     </main>
 
     <footer class="site-footer">
       <p>
-        高雄熱門地點停車推薦｜協助駕駛快速判斷現在往哪裡開，減少繞路找車位。
+        高雄停車｜協助駕駛減少繞路找車位。
       </p>
     </footer>
 
     <noscript>
       <p class="error-message">
-        此頁面需要啟用 JavaScript，才能取得附近停車場即時資料。
+        此頁面需要啟用 JavaScript，才能查看即時停車資料。
       </p>
     </noscript>
 

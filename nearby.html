@@ -9,12 +9,12 @@
     <meta name="robots" content="noindex,nofollow">
     <meta
       name="description"
-      content="查看目前位置或指定地點附近的高雄路外停車場即時剩餘空位、距離與導航。"
+      content="查看目前位置附近的高雄路外停車場即時剩餘空位、距離與導航。"
     >
 
     <title>附近停車場｜高雄停車</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-v4.css">
   </head>
 
   <body>
@@ -30,43 +30,27 @@
       </div>
     </header>
 
-    <section class="page-hero page-hero--result">
-      <div class="page-hero__content">
-        <p class="page-eyebrow">
-          即時路外停車場
-        </p>
-
-        <h1 id="page-title" class="page-title">
-          附近停車場
-        </h1>
-
-        <p id="page-intro" class="page-intro">
-          快速查看附近仍有空位的路外停車場、距離與導航。
-        </p>
-      </div>
-    </section>
-
-    <main class="result-main">
+    <main class="result-main result-main--direct">
       <section
         id="location-prompt"
-        class="result-section"
+        class="result-section parking-section--direct"
         hidden
       >
         <div class="section-heading">
-          <h2 class="section-title">
+          <h1 class="result-page-title">
             查看附近停車場
-          </h2>
+          </h1>
         </div>
 
-        <p class="section-description" style="text-align: left;">
-          按下按鈕後，瀏覽器只會取得一次目前位置，不會持續追蹤，也不會保存定位紀錄。
+        <p class="result-page-intro">
+          按下按鈕後，瀏覽器只會取得一次目前位置，不會持續追蹤或保存定位紀錄。
         </p>
 
         <button
           id="locate-button"
           class="primary-button"
           type="button"
-          style="width: 100%; margin-top: 14px;"
+          style="width: 100%; margin-top: 10px;"
         >
           查看附近停車場
         </button>
@@ -74,18 +58,28 @@
 
       <section
         id="parking-section"
-        class="parking-section"
+        class="parking-section parking-section--direct"
         aria-labelledby="parking-title"
       >
-        <div class="section-heading">
-          <div>
+        <div class="section-heading result-heading">
+          <div class="result-heading__copy">
             <p class="page-eyebrow">
               即時路外停車場
             </p>
 
-            <h2 id="parking-title" class="section-title">
+            <h1
+              id="page-title"
+              class="result-page-title"
+            >
               附近停車場
-            </h2>
+            </h1>
+
+            <p
+              id="page-intro"
+              class="result-page-intro"
+            >
+              快速比較目前位置附近路外停車場的剩餘空位、距離與更新時間。
+            </p>
           </div>
 
           <button
@@ -107,9 +101,7 @@
           id="parking-summary"
           class="parking-summary"
           aria-live="polite"
-        >
-          正在準備附近停車場資料…
-        </p>
+        ></p>
 
         <p
           id="parking-meta"
@@ -136,18 +128,14 @@
         </h2>
 
         <p>
-          本站只顯示具備明確座標、可直接導航且仍有空位的路外停車場。距離為直線距離，實際開車路線與行車時間請以 Google 地圖為準。
-        </p>
-
-        <p>
-          即時空位可能隨車輛進出變動，實際狀況請以現場為準。
+          距離為直線距離，實際開車路線與行車時間請以 Google 地圖為準。即時空位可能隨車輛進出變動，實際狀況請以現場為準。
         </p>
       </section>
     </main>
 
     <footer class="site-footer">
       <p>
-        高雄停車｜協助駕駛快速判斷現在往哪裡開，減少繞路找車位。
+        高雄停車｜協助駕駛減少繞路找車位。
       </p>
     </footer>
 
