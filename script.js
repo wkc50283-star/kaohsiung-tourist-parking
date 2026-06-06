@@ -4,18 +4,6 @@ function normalize(text) {
     .replace(/停車場|停車|即時|推薦|景點|地點|\s/g, "");
 }
 
-function statusLabel(status) {
-  if (status === "available") {
-    return ["🟢 有車位", "available"];
-  }
-
-  if (status === "full") {
-    return ["🔴 可能已滿", "full"];
-  }
-
-  return ["⚪ 無即時資料", "unknown"];
-}
-
 function findSiteBySlug() {
   const fileName =
     location.pathname.split("/").pop() ||
@@ -142,223 +130,95 @@ function renderHome() {
       )
       .join("");
 }
-
 function renderPage() {
   const site =
     findSiteBySlug();
-
-  const parkingRoot =
-    document.querySelector(
-      "#parking-list"
-    );
 
   const roadRoot =
     document.querySelector(
       "#road-list"
     );
 
-  if (
-    !site ||
-    !parkingRoot
-  ) {
+  if (!site) {
     return;
   }
 
   document.title =
     `${site.title}｜高雄熱門地點停車推薦`;
 
-  document.querySelector(
-    "#page-title"
-  ).textContent =
-    site.title;
-
-  document.querySelector(
-    "#page-intro"
-  ).textContent =
-    site.intro;
-
-  document.querySelector(
-    "#page-keywords"
-  ).textContent =
-    site.keywords.join("、");
-
-  parkingRoot.innerHTML =
-    site.lots.length
-      ? site.lots
-          .map((lot) => {
-            const [
-              statusText,
-              statusClass,
-            ] =
-              statusLabel(
-                lot.status
-              );
-
-            const paymentBadges =
-              [
-                lot.epay,
-                lot.plate,
-              ]
-                .filter(Boolean)
-                .map(
-                  (value) =>
-                    `<span>${value}</span>`
-                )
-                .join("");
-
-            return `
-              <article
-                class="parking-card decision-card"
-              >
-                <div
-                  class="status-line ${statusClass}"
-                >
-                  ${statusText}
-                </div>
-
-                <h3>
-                  ${lot.name}
-                </h3>
-
-                <p class="distance">
-                  📍 ${lot.distance}
-                </p>
-
-                <a
-                  class="nav-btn"
-                  target="_blank"
-                  rel="noopener"
-                  href="${lot.maps}"
-                >
-                  🧭 開始導航
-                </a>
-
-                <div class="price-lines">
-                  <div>
-                    ${lot.weekday}
-                  </div>
-
-                  <div>
-                    ${lot.holiday}
-                  </div>
-                </div>
-
-                <div class="mini-tags">
-                  ${paymentBadges}
-                </div>
-
-                <p class="card-note">
-                  ${lot.note || ""}
-                </p>
-              </article>
-            `;
-          })
-          .join("")
-      : `
-        <p class="empty">
-          目前正在整理附近停車場資料，完成後會補上空位狀態、距離與導航。
-        </p>
-      `;
-
-  if (!roadRoot) {
-    return;
-  }
-
-  const roads =
-    site.roads || [];
-
-  roadRoot.innerHTML =
-    roads.length
-      ? roads
-          .map(
-            (road) => `
-              <article class="road-card">
-                <h3>
-                  ${road.name}
-                </h3>
-
-                <p class="road-status">
-                  ${road.status}
-                </p>
-
-                <p class="card-note">
-                  ${road.note}
-                </p>
-
-                <a
-                  class="nav-btn light"
-                  target="_blank"
-                  rel="noopener"
-                  href="${road.maps}"
-                >
-                  🧭 導航到路段
-                </a>
-              </article>
-            `
-          )
-          .join("")
-      : `
-        <p class="empty">
-          目前尚未整理可嘗試路段。
-        </p>
-      `;
-}
-
-function bindSearch() {
-  const input =
+  const pageTitle =
     document.querySelector(
-      "#searchInput"
+      "#page-title"
     );
 
-  const searchButton =
+  const pageIntro =
     document.querySelector(
-      "#searchBtn"
+      "#page-intro"
     );
 
-  const message =
+  const pageKeywords =
     document.querySelector(
-      "#searchMsg"
+      "#page-keywords"
     );
 
-  if (!input) {
-    return;
+  if (pageTitle) {
+    pageTitle.textContent =
+      site.title;
   }
 
-  function submit() {
-    const site =
-      findSiteByQuery(
-        input.value
-      );
-
-    if (site) {
-      location.href =
-        site.slug;
-
-      return;
-    }
-
-    if (message) {
-      message.textContent =
-        "目前找不到這個地點，請試試：駁二、高流、巨蛋、瑞豐夜市、新堀江。";
-    }
+  if (pageIntro) {
+    pageIntro.textContent =
+      site.intro || "";
   }
 
-  searchButton?.addEventListener(
-    "click",
-    submit
-  );
+  if (pageKeywords) {
+    pageKeywords.textContent =
+      (
+        site.keywords ||
+        []
+      ).join("、");
+  }
 
-  input.addEventListener(
-    "keydown",
-    (event) => {
-      if (
-        event.key ===
-        "Enter"
-      ) {
-        submit();
-      }
-    }
-  );
+  if (roadRoot) {
+    const roads =
+      site.roads || [];
+
+    roadRoot.innerHTML =
+      roads.length
+        ? roads
+            .map(
+              (road) => `
+                <article class="road-card">
+                  <h3>
+                    ${road.name}
+                  </h3>
+
+                  <p class="road-status">
+                    ${road.status}
+                  </p>
+
+                  <p class="card-note">
+                    ${road.note}
+                  </p>
+
+                  <a
+                    class="nav-btn light"
+                    target="_blank"
+                    rel="noopener"
+                    href="${road.maps}"
+                  >
+                    🧭 導航到路段
+                  </a>
+                </article>
+              `
+            )
+            .join("")
+        : `
+          <p class="empty">
+            目前尚未整理可嘗試路段。
+          </p>
+        `;
+  }
 }
 
 function bindCurrentLocation() {
