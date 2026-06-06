@@ -10,7 +10,7 @@
 
     <meta
       name="description"
-      content="輸入高雄熱門地點名稱，快速查看附近路外停車場即時剩餘空位、距離、更新時間與 Google 地圖導航。"
+      content="搜尋高雄熱門地點，或直接查看目前位置附近的路外停車場即時剩餘空位、距離與導航。"
     >
 
     <meta
@@ -19,7 +19,7 @@
     >
 
     <title>
-      高雄熱門地點停車推薦｜附近停車場、即時剩餘空位與導航
+      高雄停車推薦｜附近停車場即時空位與導航
     </title>
 
     <link
@@ -40,7 +40,7 @@
           class="site-brand"
           href="index.html"
         >
-          高雄熱門地點停車推薦
+          高雄停車推薦
         </a>
       </div>
     </header>
@@ -48,40 +48,34 @@
     <main class="page-shell">
       <section class="page-hero">
         <p class="page-eyebrow">
-          高雄停車
+          高雄熱門地點停車
         </p>
 
         <h1 class="page-title">
-          快速找到附近<br>
-          有空位的停車場
+          現在要去哪裡？
         </h1>
 
         <p class="page-intro">
-          輸入熱門地點，或使用目前位置，快速比較附近路外停車場的剩餘空位、距離與更新時間。
+          搜尋熱門地點，或直接查看附近仍有空位的路外停車場。
         </p>
       </section>
 
       <section
-        class="location-panel"
-        aria-labelledby="search-title"
+        class="location-panel homepage-action-panel"
+        aria-labelledby="homepage-search-title"
       >
         <h2
-          id="search-title"
+          id="homepage-search-title"
           class="section-title"
         >
-          你要去哪裡？
+          搜尋熱門地點
         </h2>
-
-        <p class="section-description">
-          網站只顯示已完成資料測試、具備明確座標且可直接導航的路外停車場。
-        </p>
 
         <label
           for="hotspot-search-input"
-          class="page-eyebrow"
-          style="display: block; margin-top: 14px;"
+          class="visually-hidden"
         >
-          搜尋熱門地點
+          輸入高雄熱門地點名稱
         </label>
 
         <input
@@ -98,7 +92,7 @@
           class="primary-button"
           type="button"
         >
-          搜尋熱門地點
+          搜尋停車場
         </button>
 
         <p
@@ -107,29 +101,21 @@
           aria-live="polite"
           hidden
         ></p>
-      </section>
 
-      <section
-        class="location-panel"
-        aria-labelledby="current-location-title"
-      >
-        <h2
-          id="current-location-title"
-          class="section-title"
+        <div
+          class="homepage-divider"
+          role="separator"
+          aria-label="或"
         >
-          直接找附近停車場
-        </h2>
-
-        <p class="section-description">
-          按下按鈕後，瀏覽器只會取得一次目前位置，不會持續追蹤，也不會保存定位紀錄。
-        </p>
+          <span>或</span>
+        </div>
 
         <button
-          id="use-current-location-button"
-          class="primary-button"
+          id="view-nearby-button"
+          class="secondary-action-button"
           type="button"
         >
-          使用目前位置
+          查看附近停車場
         </button>
 
         <p
@@ -138,19 +124,10 @@
           aria-live="polite"
           hidden
         ></p>
-
-        <a
-          id="view-nearby-button"
-          class="view-nearby-button"
-          href="nearby.html"
-          hidden
-        >
-          查看附近停車場
-        </a>
       </section>
 
       <section
-        class="parking-section"
+        class="parking-section homepage-hotspot-section"
         aria-labelledby="hotspot-list-title"
       >
         <div class="section-heading">
@@ -168,49 +145,26 @@
           </div>
         </div>
 
-        <p class="section-description">
-          目前只公開通過座標核對、即時資料檢查與導航測試的地點。其他地點將依序開放。
-        </p>
-
         <div
           id="hotspot-list"
           aria-live="polite"
         ></div>
       </section>
-
-      <section class="page-note">
-        <h2 class="section-title">
-          使用提醒
-        </h2>
-
-        <p>
-          本站只顯示具備明確座標、可直接導航且仍有空位的路外停車場，不提供路邊停車格或無法確認位置的停車建議。
-        </p>
-
-        <p>
-          距離採直線距離作為快速比較基準。實際開車路線、路況與行車時間，請以 Google 地圖顯示為準。
-        </p>
-
-        <p>
-          即時剩餘空位可能因車輛進出而變動，出發前仍請再次確認最新狀態。
-        </p>
-      </section>
     </main>
 
     <footer class="site-footer">
       <p>
-        高雄熱門地點停車推薦｜協助駕駛快速判斷現在往哪裡開，減少繞路找車位。
+        即時空位可能隨車輛進出變動，實際狀況請以現場為準。
       </p>
     </footer>
 
     <noscript>
       <p class="error-message">
-        此頁面需要啟用 JavaScript，才能搜尋熱門地點與附近停車場。
+        此頁面需要啟用 JavaScript，才能搜尋附近停車場。
       </p>
     </noscript>
 
     <script src="data.js"></script>
-    <script src="parking-core.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
