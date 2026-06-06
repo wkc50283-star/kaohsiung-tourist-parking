@@ -2,31 +2,130 @@
 <html lang="zh-Hant-TW">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>景點停車場推薦｜高雄觀光景點停車</title>
-  <meta name="description" content="查看高雄觀光景點附近停車場、可嘗試路邊停車路段、價格與導航。">
-  <link rel="stylesheet" href="style.css">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>
+    駁二停車場推薦｜附近即時空位、距離與導航
+  </title>
+
+  <meta
+    name="description"
+    content="查看駁二藝術特區附近停車場即時剩餘空位、距離、更新時間、導航與可嘗試路邊停車路段。"
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 </head>
+
 <body>
-<header class="wrap page-head">
-  <div class="topbar"><a class="brand" href="index.html">高雄停車</a><a class="small-link" href="index.html">回首頁</a></div>
-  <h1 id="page-title">景點停車場推薦</h1>
-  <p id="page-intro"></p>
-  <div class="notice">先看附近停車場，再參考可嘗試路邊停車路段。車位狀態僅依可取得資料呈現，不保證抵達時仍有車位。</div>
-  <p class="small-link keyword-line">相關搜尋：<span id="page-keywords"></span></p>
-</header>
-<main class="wrap section">
-  <section class="result-section">
-    <h2 class="section-title">附近停車場</h2>
-    <div id="parking-list" class="grid"></div>
-  </section>
-  <section class="result-section roadside-section">
-    <h2 class="section-title">可嘗試路邊停車路段</h2>
-    <p class="section-note">路邊停車格無即時空位資料，請看現場標線與告示。</p>
-    <div id="road-list" class="grid"></div>
-  </section>
-</main>
-<footer class="footer wrap">車位狀態、價格與付款方式可能變動，請以現場公告為準。</footer>
-<script src="data.js"></script><script src="script.js"></script>
+  <header class="wrap page-head">
+    <div class="topbar">
+      <a
+        class="brand"
+        href="index.html"
+      >
+        高雄停車
+      </a>
+
+      <a
+        class="small-link"
+        href="index.html"
+      >
+        回首頁
+      </a>
+    </div>
+
+    <h1 id="page-title">
+      駁二停車場推薦
+    </h1>
+
+    <p id="page-intro"></p>
+
+    <div class="notice">
+      先查看附近停車場即時剩餘空位，再參考原有停車資訊與可嘗試路邊停車路段。
+      車位狀態僅依可取得資料呈現，不保證抵達時仍有車位。
+    </div>
+
+    <p class="small-link keyword-line">
+      相關搜尋：
+      <span id="page-keywords"></span>
+    </p>
+  </header>
+
+  <main class="wrap section">
+    <section class="result-section">
+      <h2 class="section-title">
+        駁二附近即時停車場
+      </h2>
+
+      <p class="section-note">
+        以下資料來自 TDX 清洗後快取，先排除不可靠資料，再依距離駁二由近到遠排列。
+        請自行比較剩餘空位、距離與更新時間。
+      </p>
+
+      <div
+        id="hotspot-live-status"
+        class="notice"
+      >
+        正在讀取 TDX 即時停車資料……
+      </div>
+
+      <p
+        id="hotspot-live-summary"
+        class="section-note"
+      ></p>
+
+      <div
+        id="hotspot-live-list"
+        class="grid"
+      ></div>
+    </section>
+
+    <section class="result-section">
+      <h2 class="section-title">
+        原有停車參考
+      </h2>
+
+      <p class="section-note">
+        以下為原先整理的停車資訊。若即時資料暫時無法取得，可將這些資訊作為備案。
+      </p>
+
+      <div
+        id="parking-list"
+        class="grid"
+      ></div>
+    </section>
+
+    <section
+      class="result-section roadside-section"
+    >
+      <h2 class="section-title">
+        可嘗試路邊停車路段
+      </h2>
+
+      <p class="section-note">
+        路邊停車格無即時空位資料，請查看現場標線與告示。
+      </p>
+
+      <div
+        id="road-list"
+        class="grid"
+      ></div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    車位狀態、價格與付款方式可能變動，請以現場公告為準。
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+  <script src="hotspot-live.js"></script>
 </body>
 </html>
