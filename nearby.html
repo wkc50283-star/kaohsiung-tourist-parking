@@ -2,101 +2,80 @@
 <html lang="zh-Hant-TW">
   <head>
     <meta charset="UTF-8">
-
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     >
-
-    <meta
-      name="robots"
-      content="noindex,nofollow"
-    >
-
+    <meta name="robots" content="noindex,nofollow">
     <meta
       name="description"
-      content="使用目前位置快速查看附近路外停車場即時剩餘空位、距離、更新時間與導航。"
+      content="查看目前位置或指定地點附近的高雄路外停車場即時剩餘空位、距離與導航。"
     >
 
-    <title>
-      使用目前位置搜尋附近停車場｜高雄熱門地點停車推薦
-    </title>
+    <title>附近停車場｜高雄停車</title>
 
-    <link
-      rel="stylesheet"
-      href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
     <header class="site-header">
       <div class="site-header__inner">
-        <a
-          class="site-brand"
-          href="index.html"
-        >
-          高雄熱門地點停車推薦
+        <a class="site-brand" href="index.html">
+          <span>高雄停車</span>
         </a>
 
-        <a
-          class="site-header__back-link"
-          href="index.html"
-        >
+        <a class="site-header__back-link" href="index.html">
           回首頁
         </a>
       </div>
     </header>
 
-    <main class="page-shell">
-      <section class="page-hero">
+    <section class="page-hero page-hero--result">
+      <div class="page-hero__content">
         <p class="page-eyebrow">
-          使用目前位置
+          即時路外停車場
         </p>
 
-        <h1 class="page-title">
-          搜尋附近路外停車場
+        <h1 id="page-title" class="page-title">
+          附近停車場
         </h1>
 
-        <p class="page-intro">
-          按下按鈕後，瀏覽器只會取得一次目前位置，用來尋找附近可明確導航的路外停車場。
+        <p id="page-intro" class="page-intro">
+          快速查看附近仍有空位的路外停車場、距離與導航。
         </p>
-      </section>
+      </div>
+    </section>
 
+    <main class="result-main">
       <section
-        class="location-panel"
-        aria-labelledby="location-panel-title"
+        id="location-prompt"
+        class="result-section"
+        hidden
       >
-        <h2
-          id="location-panel-title"
-          class="section-title"
-        >
-          取得目前位置
-        </h2>
+        <div class="section-heading">
+          <h2 class="section-title">
+            查看附近停車場
+          </h2>
+        </div>
 
-        <p class="section-description">
-          不會持續追蹤、不會保存定位紀錄，也不會將座標傳送至本網站伺服器。
+        <p class="section-description" style="text-align: left;">
+          按下按鈕後，瀏覽器只會取得一次目前位置，不會持續追蹤，也不會保存定位紀錄。
         </p>
 
         <button
-          id="use-current-location-button"
+          id="locate-button"
           class="primary-button"
           type="button"
+          style="width: 100%; margin-top: 14px;"
         >
-          使用目前位置搜尋附近停車場
+          查看附近停車場
         </button>
-
-        <p
-          id="location-status"
-          class="status-message"
-          aria-live="polite"
-        >
-          按下按鈕後，瀏覽器只會取得一次目前位置，不會持續追蹤或保存定位紀錄。
-        </p>
       </section>
 
       <section
+        id="parking-section"
         class="parking-section"
-        aria-labelledby="parking-section-title"
+        aria-labelledby="parking-title"
       >
         <div class="section-heading">
           <div>
@@ -104,20 +83,33 @@
               即時路外停車場
             </p>
 
-            <h2
-              id="parking-section-title"
-              class="section-title"
-            >
+            <h2 id="parking-title" class="section-title">
               附近停車場
             </h2>
           </div>
+
+          <button
+            id="relocate-button"
+            class="secondary-button"
+            type="button"
+          >
+            重新定位
+          </button>
         </div>
+
+        <p
+          id="location-status"
+          class="status-message"
+          aria-live="polite"
+        ></p>
 
         <p
           id="parking-summary"
           class="parking-summary"
           aria-live="polite"
-        ></p>
+        >
+          正在準備附近停車場資料…
+        </p>
 
         <p
           id="parking-meta"
@@ -144,24 +136,24 @@
         </h2>
 
         <p>
-          本站只顯示具備明確座標、可直接導航且仍有空位的路外停車場。距離為直線距離，實際開車路線與行車時間請以 Google 地圖顯示為準。
+          本站只顯示具備明確座標、可直接導航且仍有空位的路外停車場。距離為直線距離，實際開車路線與行車時間請以 Google 地圖為準。
         </p>
 
         <p>
-          即時剩餘空位可能因車輛進出而變動，出發前仍請再次查看最新狀態。
+          即時空位可能隨車輛進出變動，實際狀況請以現場為準。
         </p>
       </section>
     </main>
 
     <footer class="site-footer">
       <p>
-        高雄熱門地點停車推薦｜協助駕駛快速判斷現在往哪裡開，減少繞路找車位。
+        高雄停車｜協助駕駛快速判斷現在往哪裡開，減少繞路找車位。
       </p>
     </footer>
 
     <noscript>
       <p class="error-message">
-        此頁面需要啟用 JavaScript，才能取得附近停車場即時資料。
+        此頁面需要啟用 JavaScript，才能查看附近停車場即時資料。
       </p>
     </noscript>
 
