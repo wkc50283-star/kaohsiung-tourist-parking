@@ -1,16 +1,33 @@
+"use strict";
+
 function normalize(text) {
   return (text || "")
     .toLowerCase()
-    .replace(/停車場|停車|即時|推薦|景點|地點|\s/g, "");
+    .replace(
+      /停車場|停車|即時|推薦|景點|地點|\s/g,
+      ""
+    );
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function findSiteBySlug() {
   const fileName =
-    location.pathname.split("/").pop() ||
+    location.pathname
+      .split("/")
+      .pop() ||
     "index.html";
 
   return SITES.find(
-    (site) => site.slug === fileName
+    (site) =>
+      site.slug === fileName
   );
 }
 
@@ -34,20 +51,29 @@ function findSiteByQuery(query) {
         normalizedName
       );
 
-    const matchedKeyword =
-      site.keywords.some((keyword) => {
-        const normalizedKeyword =
-          normalize(keyword);
+    const keywords =
+      Array.isArray(
+        site.keywords
+      )
+        ? site.keywords
+        : [];
 
-        return (
-          normalizedKeyword.includes(
-            normalizedQuery
-          ) ||
-          normalizedQuery.includes(
-            normalizedKeyword
-          )
-        );
-      });
+    const matchedKeyword =
+      keywords.some(
+        (keyword) => {
+          const normalizedKeyword =
+            normalize(keyword);
+
+          return (
+            normalizedKeyword.includes(
+              normalizedQuery
+            ) ||
+            normalizedQuery.includes(
+              normalizedKeyword
+            )
+          );
+        }
+      );
 
     return (
       matchedName ||
@@ -98,24 +124,33 @@ function renderHome() {
     HOME_CATEGORY_ORDER
       .filter(
         (category) =>
-          groups[category]?.length
+          groups[category]
+            ?.length
       )
       .map(
         (category) => `
           <h2 class="category">
-            ${category}
+            ${escapeHtml(
+              category
+            )}
           </h2>
 
           <div class="grid">
-            ${groups[category]
+            ${groups[
+              category
+            ]
               .map(
                 (site) => `
                   <a
                     class="site-card"
-                    href="${site.slug}"
+                    href="${escapeHtml(
+                      site.slug
+                    )}"
                   >
                     <h3>
-                      ${site.name}
+                      ${escapeHtml(
+                        site.name
+                      )}
                     </h3>
 
                     <p>
@@ -130,21 +165,14 @@ function renderHome() {
       )
       .join("");
 }
+
 function renderPage() {
   const site =
     findSiteBySlug();
 
-  const roadRoot =
-    document.querySelector(
-      "#road-list"
-    );
-
   if (!site) {
     return;
   }
-
-  document.title =
-    `${site.title}｜高雄熱門地點停車推薦`;
 
   const pageTitle =
     document.querySelector(
@@ -161,9 +189,23 @@ function renderPage() {
       "#page-keywords"
     );
 
+  const roadRoot =
+    document.querySelector(
+      "#road-list"
+    );
+
+  document.title =
+    `${
+      site.title ||
+      site.name ||
+      "高雄停車"
+    }｜高雄熱門地點停車推薦`;
+
   if (pageTitle) {
     pageTitle.textContent =
-      site.title;
+      site.title ||
+      site.name ||
+      "";
   }
 
   if (pageIntro) {
@@ -172,53 +214,129 @@ function renderPage() {
   }
 
   if (pageKeywords) {
+    const keywords =
+      Array.isArray(
+        site.keywords
+      )
+        ? site.keywords
+        : [];
+
     pageKeywords.textContent =
-      (
-        site.keywords ||
-        []
-      ).join("、");
+      keywords.join("、");
   }
 
-  if (roadRoot) {
-    const roads =
-      site.roads || [];
-
-    roadRoot.innerHTML =
-      roads.length
-        ? roads
-            .map(
-              (road) => `
-                <article class="road-card">
-                  <h3>
-                    ${road.name}
-                  </h3>
-
-                  <p class="road-status">
-                    ${road.status}
-                  </p>
-
-                  <p class="card-note">
-                    ${road.note}
-                  </p>
-
-                  <a
-                    class="nav-btn light"
-                    target="_blank"
-                    rel="noopener"
-                    href="${road.maps}"
-                  >
-                    🧭 導航到路段
-                  </a>
-                </article>
-              `
-            )
-            .join("")
-        : `
-          <p class="empty">
-            目前尚未整理可嘗試路段。
-          </p>
-        `;
+  if (!roadRoot) {
+    return;
   }
+
+  const roads =
+    Array.isArray(
+      site.roads
+    )
+      ? site.roads
+      : [];
+
+  roadRoot.innerHTML =
+    roads.length
+      ? roads
+          .map(
+            (road) => `
+              <article class="road-card">
+                <h3>
+                  ${escapeHtml(
+                    road.name
+                  )}
+                </h3>
+
+                <p class="road-status">
+                  ${escapeHtml(
+                    road.status
+                  )}
+                </p>
+
+                <p class="card-note">
+                  ${escapeHtml(
+                    road.note
+                  )}
+                </p>
+
+                <a
+                  class="nav-btn light"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="${escapeHtml(
+                    road.maps ||
+                    "#"
+                  )}"
+                >
+                  🧭 導航到路段
+                </a>
+              </article>
+            `
+          )
+          .join("")
+      : `
+        <p class="empty">
+          目前尚未整理可嘗試路段。
+        </p>
+      `;
+}
+
+function bindSearch() {
+  const input =
+    document.querySelector(
+      "#searchInput"
+    );
+
+  const searchButton =
+    document.querySelector(
+      "#searchBtn"
+    );
+
+  const message =
+    document.querySelector(
+      "#searchMsg"
+    );
+
+  if (!input) {
+    return;
+  }
+
+  function submit() {
+    const site =
+      findSiteByQuery(
+        input.value
+      );
+
+    if (site) {
+      location.href =
+        site.slug;
+
+      return;
+    }
+
+    if (message) {
+      message.textContent =
+        "目前找不到這個地點，請試試：駁二、高流、巨蛋、瑞豐夜市、新堀江。";
+    }
+  }
+
+  searchButton?.addEventListener(
+    "click",
+    submit
+  );
+
+  input.addEventListener(
+    "keydown",
+    (event) => {
+      if (
+        event.key ===
+        "Enter"
+      ) {
+        submit();
+      }
+    }
+  );
 }
 
 function bindCurrentLocation() {
