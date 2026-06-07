@@ -1688,3 +1688,112 @@ input::placeholder {
     white-space: nowrap;
   }
 }
+/* =========================================================
+   2026-06-07 結果頁卡片橫向壓縮 v6
+   目的：
+   1. 不修改即時資料與導航連結
+   2. 直接套用目前 parking-core.js 已存在的 HTML 結構
+   3. 善用左右空間，降低每張卡片高度
+   4. 地址維持單行，過長自動省略
+   ========================================================= */
+
+@media (max-width: 520px) {
+  .parking-results,
+  .result-list {
+    gap: 6px !important;
+    margin-top: 7px !important;
+  }
+
+  .parking-card {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "top top"
+      "title action"
+      "details action" !important;
+    column-gap: 8px !important;
+    row-gap: 3px !important;
+    padding: 7px 8px !important;
+    border-radius: 13px !important;
+  }
+
+  .parking-card__topline {
+    grid-area: top !important;
+  }
+
+  .parking-rank {
+    font-size: 11px !important;
+  }
+
+  .parking-availability {
+    gap: 4px !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+  }
+
+  .parking-availability::before {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  .parking-card__title {
+    grid-area: title !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    color: var(--color-primary-deep) !important;
+    font-size: 16px !important;
+    line-height: 1.18 !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .parking-card__details {
+    grid-area: details !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1px 5px !important;
+    min-width: 0 !important;
+    margin: 1px 0 0 !important;
+    padding-top: 4px !important;
+    border-top: 1px solid var(--color-border-soft) !important;
+  }
+
+  .parking-card__details div {
+    min-width: 0 !important;
+  }
+
+  .parking-card__details div:last-child {
+    grid-column: 1 / -1 !important;
+  }
+
+  .parking-card__details dt {
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+  }
+
+  .parking-card__details dd {
+    margin: 0 !important;
+    overflow: hidden !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .parking-navigation-button {
+    grid-area: action !important;
+    align-self: center !important;
+    min-height: 34px !important;
+    margin: 0 !important;
+    padding: 6px 8px !important;
+    border-radius: 10px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+
+  .parking-navigation-button::before {
+    margin-right: 4px !important;
+    font-size: 13px !important;
+  }
+}
