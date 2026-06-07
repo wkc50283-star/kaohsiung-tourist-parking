@@ -74,27 +74,28 @@
     },
 
     {
-      id: "yancheng",
-      slug: "yancheng-parking.html",
-      name: "鹽埕區",
-      title: "鹽埕區停車場推薦",
-      category: "港區／亞灣",
-      keywords: [
-        "鹽埕區停車",
-        "鹽埕停車場",
-        "鹽埕埔停車"
-      ],
-      intro:
-        "快速查看鹽埕區附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      {
+  id: "yancheng",
+  slug: "yancheng-parking.html",
+  name: "鹽埕區",
+  title: "鹽埕區停車場推薦",
+  category: "港區／亞灣",
+  keywords: [
+    "鹽埕區停車",
+    "鹽埕停車場",
+    "鹽埕埔停車"
+  ],
+  intro:
+    "快速查看鹽埕區附近路外停車場即時剩餘空位、距離與導航。",
+  latitude: 22.62694,
+  longitude: 120.28806,
+  initialRadiusMeters: 800,
+  maximumRadiusMeters: 3000,
+  minimumResults: 5,
+  coordinateVerified: true,
+  enabled: true,
+  indexable: false
+},
 
     {
       id: "kaohsiung-music-center",
