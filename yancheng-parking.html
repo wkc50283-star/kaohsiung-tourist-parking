@@ -1,32 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>高雄熱門地點停車推薦</title>
-  <meta name="description" content="快速查看高雄熱門地點附近停車場、車位狀態與導航。">
-  <link rel="stylesheet" href="style.css?v=9">
-</head>
-<body>
-<header class="page-head wrap">
-  <div class="topbar"><a class="brand" href="index.html">高雄停車</a><a class="small-link" href="index.html">回首頁</a></div>
-  <h1 id="page-title">熱門地點停車場推薦</h1>
-  <p id="page-intro"></p>
-  <div class="notice">先看附近停車場，再參考可嘗試路邊停車路段。車位狀態僅依可取得資料呈現，不保證抵達時仍有車位。</div>
-  <p class="keyword-line">相關搜尋：<span id="page-keywords"></span></p>
-</header>
-<main class="wrap">
-  <section class="result-section">
-    <h2 class="section-title">附近停車場</h2>
-    <div id="parking-list" class="grid"></div>
-  </section>
-  <section class="result-section">
-    <h2 class="section-title">可嘗試路邊停車路段</h2>
-    <p class="section-note">路邊停車格無即時空位資料，請看現場標線與告示。</p>
-    <div id="road-list" class="grid"></div>
-  </section>
-</main>
-<footer class="footer wrap">車位狀態、價格與付款方式可能變動，請以現場公告為準。</footer>
-<script src="data.js?v=10"></script><script src="script.js?v=10"></script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    >
+    <meta name="robots" content="noindex,nofollow">
+    <meta
+      name="description"
+      content="快速查看鹽埕區附近路外停車場即時剩餘空位、距離與導航。"
+    >
+
+    <title>鹽埕區停車場推薦｜附近即時空位與導航</title>
+
+    <link rel="stylesheet" href="style-v4.css">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="index.html">
+          <span>高雄停車</span>
+        </a>
+
+        <a class="site-header__back-link" href="index.html">
+          回首頁
+        </a>
+      </div>
+    </header>
+
+    <main class="result-main result-main--direct">
+      <section
+        class="parking-section parking-section--direct"
+        aria-labelledby="hotspot-title"
+      >
+        <div class="section-heading result-heading">
+          <div class="result-heading__copy">
+            <p class="page-eyebrow">
+              即時路外停車場
+            </p>
+
+            <h1
+              id="hotspot-title"
+              class="result-page-title"
+            >
+              鹽埕區停車場推薦
+            </h1>
+
+            <p
+              id="hotspot-intro"
+              class="result-page-intro"
+            >
+              快速比較鹽埕區附近路外停車場的剩餘空位、距離與更新時間。
+            </p>
+          </div>
+
+          <button
+            id="retry-parking-button"
+            class="secondary-button"
+            type="button"
+          >
+            重新整理
+          </button>
+        </div>
+
+        <p
+          id="live-status"
+          class="status-message"
+          aria-live="polite"
+        >
+          正在讀取即時車位…
+        </p>
+
+        <p
+          id="parking-summary"
+          class="parking-summary"
+          aria-live="polite"
+        ></p>
+
+        <p
+          id="parking-meta"
+          class="parking-meta"
+        ></p>
+
+        <p
+          id="parking-error"
+          class="error-message"
+          role="alert"
+          hidden
+        ></p>
+
+        <div
+          id="parking-results"
+          class="parking-results"
+          aria-live="polite"
+        ></div>
+      </section>
+
+      <section class="page-note">
+        <h2 class="section-title">
+          使用提醒
+        </h2>
+
+        <p>
+          距離為直線距離，實際開車路線與行車時間請以 Google 地圖為準。即時空位可能隨車輛進出變動，實際狀況請以現場為準。
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        高雄停車｜協助駕駛減少繞路找車位。
+      </p>
+    </footer>
+
+    <noscript>
+      <p class="error-message">
+        此頁面需要啟用 JavaScript，才能查看即時停車資料。
+      </p>
+    </noscript>
+
+    <script src="data.js"></script>
+    <script src="parking-core.js"></script>
+    <script src="hotspot-live.js"></script>
+  </body>
 </html>
