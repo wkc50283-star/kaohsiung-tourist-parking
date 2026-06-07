@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    >
+    <meta name="robots" content="noindex,nofollow">
+
+    <title>地址搜尋附近停車場測試｜高雄停車</title>
+
+    <link rel="stylesheet" href="style-v4.css">
+
+    <style>
+      .address-test-main {
+        width: min(100% - 24px, 760px);
+        margin: 18px auto 48px;
+      }
+
+      .address-test-card {
+        padding: 18px;
+        border: 1px solid #dce7ef;
+        border-radius: 22px;
+        background: #ffffff;
+        box-shadow: 0 8px 22px rgba(36, 80, 112, 0.08);
+      }
+
+      .address-test-title {
+        margin: 0;
+        color: #123a5b;
+        font-size: 28px;
+        line-height: 1.2;
+      }
+
+      .address-test-description {
+        margin: 10px 0 0;
+        color: #687b8d;
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .address-search-form {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .address-search-input {
+        min-width: 0;
+        padding: 14px 15px;
+        border: 1px solid #cfdce6;
+        border-radius: 14px;
+        background: #ffffff;
+        color: #17354f;
+        font-size: 16px;
+      }
+
+      .address-search-button {
+        padding: 0 16px;
+        border: 0;
+        border-radius: 14px;
+        background: #176fa8;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .address-search-button:disabled {
+        cursor: wait;
+        opacity: 0.65;
+      }
+
+      .test-status {
+        margin: 14px 0 0;
+        color: #587084;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .test-error {
+        margin: 14px 0 0;
+        padding: 12px 14px;
+        border: 1px solid #f2c2bc;
+        border-radius: 14px;
+        background: #fff3f1;
+        color: #ba4135;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .geocode-results {
+        display: grid;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .geocode-result-button {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #d5e2ec;
+        border-radius: 14px;
+        background: #f8fcff;
+        color: #173b59;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .geocode-result-button strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .geocode-result-button span {
+        color: #6c8193;
+        font-size: 12px;
+      }
+
+      .selected-address {
+        margin-top: 14px;
+        padding: 12px 14px;
+        border: 1px solid #cfe2ef;
+        border-radius: 14px;
+        background: #edf8ff;
+        color: #18547d;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .parking-test-section {
+        margin-top: 16px;
+      }
+
+      .osm-attribution {
+        margin: 14px 0 0;
+        color: #7b8d9d;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .osm-attribution a {
+        color: #39789e;
+      }
+
+      @media (max-width: 520px) {
+        .address-test-main {
+          width: min(100% - 16px, 760px);
+          margin-top: 10px;
+        }
+
+        .address-test-card {
+          padding: 14px;
+          border-radius: 18px;
+        }
+
+        .address-test-title {
+          font-size: 23px;
+        }
+
+        .address-search-input {
+          padding: 12px;
+          font-size: 15px;
+        }
+
+        .address-search-button {
+          padding: 0 13px;
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="index.html">
+          <span>高雄停車</span>
+        </a>
+
+        <a class="site-header__back-link" href="index.html">
+          回首頁
+        </a>
+      </div>
+    </header>
+
+    <main class="address-test-main">
+      <section class="address-test-card">
+        <p class="page-eyebrow">
+          獨立功能測試
+        </p>
+
+        <h1 class="address-test-title">
+          輸入地址搜尋附近停車場
+        </h1>
+
+        <p class="address-test-description">
+          目前只測試高雄市地址。請先輸入公開場所或店家地址，不要輸入私人住址。
+        </p>
+
+        <form
+          id="address-search-form"
+          class="address-search-form"
+        >
+          <input
+            id="address-input"
+            class="address-search-input"
+            type="search"
+            inputmode="search"
+            autocomplete="street-address"
+            placeholder="例如：高雄市鹽埕區大勇路 96 號"
+            aria-label="輸入高雄市地址"
+          >
+
+          <button
+            id="address-search-button"
+            class="address-search-button"
+            type="submit"
+          >
+            搜尋
+          </button>
+        </form>
+
+        <p
+          id="address-search-status"
+          class="test-status"
+          aria-live="polite"
+        ></p>
+
+        <p
+          id="address-search-error"
+          class="test-error"
+          role="alert"
+          hidden
+        ></p>
+
+        <div
+          id="geocode-results"
+          class="geocode-results"
+        ></div>
+
+        <p
+          id="selected-address"
+          class="selected-address"
+          hidden
+        ></p>
+
+        <p class="osm-attribution">
+          地址搜尋測試資料來源：
+          <a
+            href="https://www.openstreetmap.org/copyright"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            © OpenStreetMap contributors
+          </a>
+          。目前僅供低流量功能測試，不作為正式上線版本。
+        </p>
+      </section>
+
+      <section
+        id="parking-test-section"
+        class="parking-section parking-section--direct parking-test-section"
+        hidden
+      >
+        <div class="section-heading result-heading">
+          <div class="result-heading__copy">
+            <p class="page-eyebrow">
+              即時路外停車場
+            </p>
+
+            <h2 class="result-page-title">
+              地址附近停車場
+            </h2>
+
+            <p class="result-page-intro">
+              快速比較所選地址附近路外停車場的剩餘空位、距離與更新時間。
+            </p>
+          </div>
+        </div>
+
+        <p
+          id="parking-status"
+          class="status-message"
+          aria-live="polite"
+        ></p>
+
+        <p
+          id="parking-meta"
+          class="parking-meta"
+        ></p>
+
+        <p
+          id="parking-error"
+          class="error-message"
+          role="alert"
+          hidden
+        ></p>
+
+        <div
+          id="parking-results"
+          class="parking-results"
+          aria-live="polite"
+        ></div>
+      </section>
+    </main>
+
+    <script src="parking-core.js?v=20260607-address-01"></script>
+
+    <script>
+      (function (global) {
+        "use strict";
+
+        const CACHE_KEY = "address_search_test_cache_v1";
+        const MIN_REQUEST_INTERVAL_MS = 1100;
+
+        const KAOHSIUNG_BOUNDS = {
+          minLatitude: 22.45,
+          maxLatitude: 22.99,
+          minLongitude: 120.10,
+          maxLongitude: 120.50
+        };
+
+        const KAOHSIUNG_VIEWBOX =
+          "120.10,22.99,120.50,22.45";
+
+        const elements = {};
+        let lastRequestAt = 0;
+        let latestResults = [];
+
+        function getElements() {
+          elements.form =
+            document.querySelector("#address-search-form");
+
+          elements.input =
+            document.querySelector("#address-input");
+
+          elements.searchButton =
+            document.querySelector("#address-search-button");
+
+          elements.searchStatus =
+            document.querySelector("#address-search-status");
+
+          elements.searchError =
+            document.querySelector("#address-search-error");
+
+          elements.geocodeResults =
+            document.querySelector("#geocode-results");
+
+          elements.selectedAddress =
+            document.querySelector("#selected-address");
+
+          elements.parkingSection =
+            document.querySelector("#parking-test-section");
+
+          elements.parkingStatus =
+            document.querySelector("#parking-status");
+
+          elements.parkingMeta =
+            document.querySelector("#parking-meta");
+
+          elements.parkingError =
+            document.querySelector("#parking-error");
+
+          elements.parkingResults =
+            document.querySelector("#parking-results");
+        }
+
+        function escapeHtml(value) {
+          return String(value || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+        }
+
+        function setText(element, text) {
+          if (element) {
+            element.textContent = text || "";
+          }
+        }
+
+        function setError(element, message) {
+          if (!element) {
+            return;
+          }
+
+          element.textContent = message || "";
+          element.hidden = !message;
+        }
+
+        function normalizeQuery(value) {
+          const query = String(value || "").trim();
+
+          if (!query) {
+            return "";
+          }
+
+          return /高雄|Kaohsiung/i.test(query)
+            ? query
+            : `高雄市 ${query}`;
+        }
+
+        function isInsideKaohsiung(latitude, longitude) {
+          return (
+            latitude >= KAOHSIUNG_BOUNDS.minLatitude &&
+            latitude <= KAOHSIUNG_BOUNDS.maxLatitude &&
+            longitude >= KAOHSIUNG_BOUNDS.minLongitude &&
+            longitude <= KAOHSIUNG_BOUNDS.maxLongitude
+          );
+        }
+
+        function getCache() {
+          try {
+            return JSON.parse(
+              sessionStorage.getItem(CACHE_KEY) || "{}"
+            );
+          } catch (error) {
+            return {};
+          }
+        }
+
+        function getCachedResults(query) {
+          const cache = getCache();
+          const item = cache[query];
+
+          if (!item || !Array.isArray(item.results)) {
+            return null;
+          }
+
+          return item.results;
+        }
+
+        function saveCachedResults(query, results) {
+          const cache = getCache();
+
+          cache[query] = {
+            savedAt: Date.now(),
+            results
+          };
+
+          sessionStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify(cache)
+          );
+        }
+
+        async function waitForRateLimit() {
+          const elapsed =
+            Date.now() - lastRequestAt;
+
+          const waitMs =
+            MIN_REQUEST_INTERVAL_MS - elapsed;
+
+          if (waitMs > 0) {
+            await new Promise((resolve) => {
+              setTimeout(resolve, waitMs);
+            });
+          }
+
+          lastRequestAt = Date.now();
+        }
+
+        function clearParkingResults() {
+          elements.parkingSection.hidden = true;
+          elements.parkingResults.innerHTML = "";
+          setText(elements.parkingStatus, "");
+          setText(elements.parkingMeta, "");
+          setError(elements.parkingError, "");
+        }
+
+        function renderGeocodeResults(results) {
+          latestResults = results;
+
+          if (!results.length) {
+            elements.geocodeResults.innerHTML = "";
+            setError(
+              elements.searchError,
+              "查不到符合條件的高雄地址，請補上行政區、路名與門牌號碼後再試一次。"
+            );
+            return;
+          }
+
+          elements.geocodeResults.innerHTML =
+            results
+              .map((item, index) => {
+                return `
+                  <button
+                    class="geocode-result-button"
+                    type="button"
+                    data-index="${index}"
+                  >
+                    <strong>
+                      ${escapeHtml(item.display_name)}
+                    </strong>
+
+                    <span>
+                      座標：${escapeHtml(item.lat)}，${escapeHtml(item.lon)}
+                    </span>
+                  </button>
+                `;
+              })
+              .join("");
+
+          elements.geocodeResults
+            .querySelectorAll(".geocode-result-button")
+            .forEach((button) => {
+              button.addEventListener(
+                "click",
+                () => {
+                  const index = Number(
+                    button.dataset.index
+                  );
+
+                  selectAddressResult(
+                    latestResults[index]
+                  );
+                }
+              );
+            });
+        }
+
+        async function searchAddress(event) {
+          event.preventDefault();
+
+          const query =
+            normalizeQuery(elements.input.value);
+
+          if (!query) {
+            setError(
+              elements.searchError,
+              "請先輸入高雄市地址。"
+            );
+
+            elements.input.focus();
+            return;
+          }
+
+          clearParkingResults();
+          setError(elements.searchError, "");
+          elements.geocodeResults.innerHTML = "";
+
+          elements.searchButton.disabled = true;
+          elements.searchButton.textContent = "搜尋中…";
+
+          setText(
+            elements.searchStatus,
+            "正在查詢地址座標…"
+          );
+
+          try {
+            const cached =
+              getCachedResults(query);
+
+            if (cached) {
+              renderGeocodeResults(cached);
+
+              setText(
+                elements.searchStatus,
+                "已取得暫存查詢結果，請選擇正確地址。"
+              );
+
+              return;
+            }
+
+            await waitForRateLimit();
+
+            const url = new URL(
+              "https://nominatim.openstreetmap.org/search"
+            );
+
+            url.search = new URLSearchParams({
+              q: query,
+              format: "jsonv2",
+              addressdetails: "1",
+              limit: "5",
+              countrycodes: "tw",
+              viewbox: KAOHSIUNG_VIEWBOX,
+              bounded: "1",
+              "accept-language": "zh-TW"
+            }).toString();
+
+            const response = await fetch(
+              url.toString(),
+              {
+                headers: {
+                  Accept: "application/json"
+                },
+                referrerPolicy:
+                  "strict-origin-when-cross-origin"
+              }
+            );
+
+            if (!response.ok) {
+              throw new Error(
+                `地址查詢失敗：HTTP ${response.status}`
+              );
+            }
+
+            const rawResults =
+              await response.json();
+
+            const results = rawResults
+              .map((item) => {
+                return {
+                  display_name:
+                    item.display_name || "",
+                  lat: Number(item.lat),
+                  lon: Number(item.lon)
+                };
+              })
+              .filter((item) => {
+                return (
+                  Number.isFinite(item.lat) &&
+                  Number.isFinite(item.lon) &&
+                  isInsideKaohsiung(
+                    item.lat,
+                    item.lon
+                  )
+                );
+              });
+
+            saveCachedResults(
+              query,
+              results
+            );
+
+            renderGeocodeResults(results);
+
+            setText(
+              elements.searchStatus,
+              results.length
+                ? "已取得地址搜尋結果，請選擇正確地址。"
+                : ""
+            );
+          } catch (error) {
+            console.error(error);
+
+            setText(
+              elements.searchStatus,
+              ""
+            );
+
+            setError(
+              elements.searchError,
+              "目前無法查詢地址座標，請稍後再試一次。"
+            );
+          } finally {
+            elements.searchButton.disabled = false;
+            elements.searchButton.textContent = "搜尋";
+          }
+        }
+
+        async function selectAddressResult(item) {
+          if (!item) {
+            return;
+          }
+
+          elements.selectedAddress.hidden = false;
+
+          setText(
+            elements.selectedAddress,
+            `已選擇：${item.display_name}`
+          );
+
+          elements.geocodeResults.innerHTML = "";
+          elements.parkingSection.hidden = false;
+          elements.parkingResults.innerHTML = "";
+
+          setError(
+            elements.parkingError,
+            ""
+          );
+
+          setText(
+            elements.parkingMeta,
+            ""
+          );
+
+          setText(
+            elements.parkingStatus,
+            "正在讀取地址附近路外停車場即時資料…"
+          );
+
+          try {
+            const result =
+              await global.ParkingCore.loadNearbyParking({
+                center: {
+                  latitude: item.lat,
+                  longitude: item.lon
+                },
+                minimumResults: 5,
+                maximumResults: 5,
+                initialRadiusMeters: 800,
+                maximumRadiusMeters: 3000
+              });
+
+            setText(
+              elements.parkingStatus,
+              "已完成即時資料更新。停車場依所選地址由近到遠排列。"
+            );
+
+            const latest =
+              result &&
+              result.meta &&
+              result.meta.latestReliableCollectTime;
+
+            setText(
+              elements.parkingMeta,
+              latest
+                ? "即時資料更新時間：" +
+                  global.ParkingCore.formatLocalTime(
+                    latest
+                  )
+                : "即時資料更新時間：無法確認"
+            );
+
+            global.ParkingCore.renderParkingCards(
+              elements.parkingResults,
+              result.results
+            );
+
+            if (!result.results.length) {
+              setError(
+                elements.parkingError,
+                "這個地址附近目前沒有符合條件且仍有空位的可靠路外停車場。"
+              );
+            }
+          } catch (error) {
+            console.error(error);
+
+            setText(
+              elements.parkingStatus,
+              "附近停車場資料讀取失敗。"
+            );
+
+            setError(
+              elements.parkingError,
+              error && error.userMessage
+                ? error.userMessage
+                : "目前暫時無法取得附近停車場資料，請稍後再試。"
+            );
+          }
+        }
+
+        function init() {
+          getElements();
+
+          if (!global.ParkingCore) {
+            setError(
+              elements.searchError,
+              "ParkingCore 尚未載入，請重新整理頁面。"
+            );
+
+            return;
+          }
+
+          elements.form.addEventListener(
+            "submit",
+            searchAddress
+          );
+        }
+
+        if (
+          document.readyState === "loading"
+        ) {
+          document.addEventListener(
+            "DOMContentLoaded",
+            init
+          );
+        } else {
+          init();
+        }
+      })(window);
+    </script>
+  </body>
+</html>
