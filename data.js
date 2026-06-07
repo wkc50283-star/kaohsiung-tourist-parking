@@ -96,28 +96,28 @@
   indexable: false
 },
 
-    {
-      id: "kaohsiung-music-center",
-      slug: "kaohsiung-music-center-parking.html",
-      name: "高雄流行音樂中心",
-      title: "高雄流行音樂中心停車場推薦",
-      category: "港區／亞灣",
-      keywords: [
-        "高雄流行音樂中心停車",
-        "高流停車",
-        "高流停車場"
-      ],
-      intro:
-        "快速查看高雄流行音樂中心附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+{
+  id: "kaohsiung-music-center",
+  slug: "kaohsiung-music-center-parking.html",
+  name: "高雄流行音樂中心",
+  title: "高雄流行音樂中心停車場推薦",
+  category: "港區／亞灣",
+  keywords: [
+    "高雄流行音樂中心停車",
+    "高流停車",
+    "高流停車場"
+  ],
+  intro:
+    "快速查看高雄流行音樂中心附近路外停車場即時剩餘空位、距離與導航。",
+  latitude: 22.6178,
+  longitude: 120.2889,
+  initialRadiusMeters: 800,
+  maximumRadiusMeters: 3000,
+  minimumResults: 5,
+  coordinateVerified: true,
+  enabled: true,
+  indexable: false
+},
 
     {
       id: "love-river",
