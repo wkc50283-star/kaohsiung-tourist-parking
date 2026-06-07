@@ -72,9 +72,8 @@
       enabled: true,
       indexable: true
     },
-
-    {
-      {
+    
+{
   id: "yancheng",
   slug: "yancheng-parking.html",
   name: "鹽埕區",
