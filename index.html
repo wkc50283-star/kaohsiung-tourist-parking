@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant-TW">
   <head>
     <meta charset="UTF-8">
@@ -12,15 +13,18 @@
     >
     <meta name="robots" content="index,follow">
 
-    <title>
-      高雄熱門地點停車推薦｜附近停車場即時空位與導航
-    </title>
+```
+<title>
+  高雄熱門地點停車推薦｜附近停車場即時空位與導航
+</title>
 
-    <link
-      rel="canonical"
-      href="https://wkc50283-star.github.io/kaohsiung-tourist-parking/"
-    >
-    <link rel="stylesheet" href="style-v3.css">
+<link
+  rel="canonical"
+  href="https://wkc50283-star.github.io/kaohsiung-tourist-parking/"
+>
+<link rel="stylesheet" href="style-v3.css">
+```
+
   </head>
 
   <body>
@@ -30,494 +34,796 @@
           <span>高雄停車</span>
         </a>
 
-        <div class="site-header__right">
-          <a class="site-nav-link" href="#hotspot-area">
-            熱門地點
-          </a>
+```
+    <div class="site-header__right">
+      <a class="site-nav-link" href="#hotspot-area">
+        熱門地點
+      </a>
 
-          <a
-            class="site-menu-button"
-            href="#hotspot-area"
-            aria-label="查看熱門地點"
+      <a
+        class="site-menu-button"
+        href="#hotspot-area"
+        aria-label="查看熱門地點"
+      >
+        ☰
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="home-hero">
+  <div class="home-hero__content">
+    <p class="hero-eyebrow">
+      高雄熱門地點停車
+    </p>
+
+    <h1 class="hero-title">
+      高雄熱門地點<br>
+      停車推薦
+    </h1>
+
+    <h2 class="hero-question">
+      你要去哪裡？
+    </h2>
+
+    <p class="hero-description">
+      快速查看附近停車場、<br>
+      即時空位與導航。
+    </p>
+  </div>
+</section>
+
+<main class="home-main">
+  <section
+    class="search-card"
+    aria-labelledby="search-title"
+  >
+    <h2 id="search-title" class="visually-hidden">
+      搜尋停車場
+    </h2>
+
+    <div class="search-row">
+      <label
+        class="visually-hidden"
+        for="hotspot-search-input"
+      >
+        輸入高雄市地點名稱
+      </label>
+
+      <input
+        id="hotspot-search-input"
+        class="search-input"
+        type="search"
+        inputmode="search"
+        autocomplete="off"
+        placeholder="輸入地點名稱，例如：文化中心、駁二、巨蛋"
+        aria-label="輸入高雄市地點名稱"
+      >
+
+      <button
+        id="hotspot-search-button"
+        class="search-button"
+        type="button"
+      >
+        搜尋
+      </button>
+    </div>
+
+    <p
+      id="homepage-message"
+      class="status-message"
+      aria-live="polite"
+      hidden
+    ></p>
+
+    <button
+      id="view-nearby-button"
+      class="nearby-button"
+      type="button"
+    >
+      查看附近停車場
+    </button>
+
+    <p class="location-help">
+      使用目前位置搜尋附近停車場
+    </p>
+
+    <p
+      id="location-status"
+      class="status-message"
+      aria-live="polite"
+      hidden
+    ></p>
+
+    <nav
+      class="quick-links"
+      aria-label="熱門地點捷徑"
+    >
+      <a
+        class="quick-chip"
+        href="pier2-parking.html"
+      >
+        駁二
+      </a>
+
+      <a
+        class="quick-chip"
+        href="kaohsiung-music-center-parking.html"
+      >
+        高流
+      </a>
+
+      <a
+        class="quick-chip"
+        href="kaohsiung-arena-parking.html"
+      >
+        巨蛋
+      </a>
+
+      <a
+        class="quick-chip"
+        href="ruifeng-night-market-parking.html"
+      >
+        瑞豐夜市
+      </a>
+
+      <a
+        class="quick-chip"
+        href="xinkujiang-central-park-parking.html"
+      >
+        新堀江
+      </a>
+    </nav>
+  </section>
+
+  <section
+    id="hotspot-area"
+    class="hotspot-area"
+    aria-labelledby="hotspot-title"
+  >
+    <div class="section-heading">
+      <h2 id="hotspot-title" class="section-title">
+        高雄熱門地點
+      </h2>
+    </div>
+
+    <section class="hotspot-category category--harbor">
+      <h3 class="hotspot-category__heading">
+        ⚓ 港區／亞灣
+      </h3>
+
+      <div class="category-list">
+        <a
+          class="category-card"
+          href="pier2-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
           >
-            ☰
-          </a>
-        </div>
-      </div>
-    </header>
+            ⚓
+          </span>
 
-    <section class="home-hero">
-      <div class="home-hero__content">
-        <p class="hero-eyebrow">
-          高雄熱門地點停車
-        </p>
+          <span>
+            <strong class="category-card__title">
+              駁二／棧貳庫／大港橋
+            </strong>
 
-        <h1 class="hero-title">
-          高雄熱門地點<br>
-          停車推薦
-        </h1>
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
 
-        <h2 class="hero-question">
-          你要去哪裡？
-        </h2>
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
 
-        <p class="hero-description">
-          快速查看附近停車場、<br>
-          即時空位與導航。
-        </p>
+        <a
+          class="category-card"
+          href="yancheng-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ♜
+          </span>
+
+          <span>
+            <strong class="category-card__title">
+              鹽埕區
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+
+        <a
+          class="category-card"
+          href="kaohsiung-music-center-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ◒
+          </span>
+
+          <span>
+            <strong class="category-card__title">
+              高流／展覽館／亞灣
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+
+        <a
+          class="category-card"
+          href="love-river-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ≈
+          </span>
+
+          <span>
+            <strong class="category-card__title">
+              愛河風景區
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
       </div>
     </section>
 
-    <main class="home-main">
-      <section
-        class="search-card"
-        aria-labelledby="search-title"
-      >
-        <h2 id="search-title" class="visually-hidden">
-          搜尋停車場
-        </h2>
+    <section class="hotspot-category category--shopping">
+      <h3 class="hotspot-category__heading">
+        ♧ 商圈／百貨
+      </h3>
 
-        <div class="search-row">
-          <label
-            class="visually-hidden"
-            for="hotspot-search-input"
-          >
-            輸入高雄市地點名稱
-          </label>
-
-          <input
-            id="hotspot-search-input"
-            class="search-input"
-            type="search"
-            inputmode="search"
-            autocomplete="off"
-            placeholder="輸入地點名稱，例如：文化中心、駁二、巨蛋"
-            aria-label="輸入高雄市地點名稱"
-          >
-
-          <button
-            id="hotspot-search-button"
-            class="search-button"
-            type="button"
-          >
-            搜尋
-          </button>
-        </div>
-
-        <p
-          id="homepage-message"
-          class="status-message"
-          aria-live="polite"
-          hidden
-        ></p>
-
-        <button
-          id="view-nearby-button"
-          class="nearby-button"
-          type="button"
+      <div class="category-list">
+        <a
+          class="category-card"
+          href="kaohsiung-arena-parking.html"
         >
-          查看附近停車場
-        </button>
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ⌂
+          </span>
 
-        <p class="location-help">
-          使用目前位置搜尋附近停車場
-        </p>
+          <span>
+            <strong class="category-card__title">
+              巨蛋商圈
+            </strong>
 
-        <p
-          id="location-status"
-          class="status-message"
-          aria-live="polite"
-          hidden
-        ></p>
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
 
-        <nav
-          class="quick-links"
-          aria-label="熱門地點捷徑"
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+
+        <a
+          class="category-card"
+          href="xinkujiang-central-park-parking.html"
         >
-          <a class="quick-chip" href="pier2-parking.html">
-            駁二
-          </a>
-
-          <a
-            class="quick-chip"
-            href="#"
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
           >
-            高流
-          </a>
+            ♢
+          </span>
 
-          <a
-            class="quick-chip"
-            href="#"
+          <span>
+            <strong class="category-card__title">
+              新堀江／中央公園
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
           >
-            巨蛋
-          </a>
+            ›
+          </span>
+        </a>
 
-          <a
-            class="quick-chip"
-            href="#"
+        <a
+          class="category-card"
+          href="dali-department-store-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
           >
-            瑞豐夜市
-          </a>
+            ▤
+          </span>
 
-          <a
-            class="quick-chip"
-            href="#"
+          <span>
+            <strong class="category-card__title">
+              大立百貨商圈
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
           >
-            新堀江
-          </a>
-        </nav>
-      </section>
+            ›
+          </span>
+        </a>
 
-      <section
-        id="hotspot-area"
-        class="hotspot-area"
-        aria-labelledby="hotspot-title"
-      >
-        <div class="section-heading">
-          <h2 id="hotspot-title" class="section-title">
-            高雄熱門地點
-          </h2>
-        </div>
+        <a
+          class="category-card"
+          href="hanshin-department-store-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ▥
+          </span>
 
-        <section class="hotspot-category category--harbor">
-          <h3 class="hotspot-category__heading">
-            ⚓ 港區／亞灣
-          </h3>
+          <span>
+            <strong class="category-card__title">
+              漢神百貨本館
+            </strong>
 
-          <div class="category-list">
-            <a class="category-card" href="pier2-parking.html">
-              <span class="category-card__icon" aria-hidden="true">⚓</span>
-              <span>
-                <strong class="category-card__title">
-                  駁二／棧貳庫／大港橋
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
 
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">♜</span>
-              <span>
-                <strong class="category-card__title">
-                  鹽埕區
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
 
-            <a
-              class="category-card"
-              href="#"
-            >
-              <span class="category-card__icon" aria-hidden="true">◒</span>
-              <span>
-                <strong class="category-card__title">
-                  高流／展覽館／亞灣
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+        <a
+          class="category-card"
+          href="sanduo-shopping-district-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ▦
+          </span>
 
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">≈</span>
-              <span>
-                <strong class="category-card__title">
-                  愛河風景區
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
-          </div>
-        </section>
+          <span>
+            <strong class="category-card__title">
+              三多商圈
+            </strong>
 
-        <section class="hotspot-category category--shopping">
-          <h3 class="hotspot-category__heading">
-            ♧ 商圈／百貨
-          </h3>
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
 
-          <div class="category-list">
-            <a
-              class="category-card"
-              href="#"
-            >
-              <span class="category-card__icon" aria-hidden="true">⌂</span>
-              <span>
-                <strong class="category-card__title">
-                  巨蛋商圈
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
 
-            <a
-              class="category-card"
-              href="#"
-            >
-              <span class="category-card__icon" aria-hidden="true">♢</span>
-              <span>
-                <strong class="category-card__title">
-                  新堀江／中央公園
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+        <a
+          class="category-card"
+          href="dream-mall-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ▣
+          </span>
 
-            <a
-              class="category-card"
-              href="#"
-            >
-              <span class="category-card__icon" aria-hidden="true">▤</span>
-              <span>
-                <strong class="category-card__title">
-                  大立百貨商圈
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+          <span>
+            <strong class="category-card__title">
+              夢時代
+            </strong>
 
-            <a
-              class="category-card"
-              href="#"
-            >
-              <span class="category-card__icon" aria-hidden="true">▥</span>
-              <span>
-                <strong class="category-card__title">
-                  漢神百貨本館
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
 
-            <a
-              class="category-card"
-              href="#"
-            >
-              <span class="category-card__icon" aria-hidden="true">▦</span>
-              <span>
-                <strong class="category-card__title">
-                  三多商圈
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+      </div>
+    </section>
 
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">▣</span>
-              <span>
-                <strong class="category-card__title">
-                  夢時代
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
-          </div>
-        </section>
+    <section class="hotspot-category category--night">
+      <h3 class="hotspot-category__heading">
+        ◉ 夜市／活動區
+      </h3>
 
-        <section class="hotspot-category category--night">
-          <h3 class="hotspot-category__heading">
-            ◉ 夜市／活動區
-          </h3>
+      <div class="category-list">
+        <a
+          class="category-card"
+          href="ruifeng-night-market-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ◉
+          </span>
 
-          <div class="category-list">
-            <a
-              class="category-card"
-              href="#"
-            >
-              <span class="category-card__icon" aria-hidden="true">◉</span>
-              <span>
-                <strong class="category-card__title">
-                  瑞豐夜市
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+          <span>
+            <strong class="category-card__title">
+              瑞豐夜市
+            </strong>
 
-            <a
-              class="category-card"
-              href="#"
-            >
-              <span class="category-card__icon" aria-hidden="true">✦</span>
-              <span>
-                <strong class="category-card__title">
-                  六合夜市／美麗島站
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
 
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">⌘</span>
-              <span>
-                <strong class="category-card__title">
-                  衛武營
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
-          </div>
-        </section>
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
 
-        <section class="hotspot-category category--life">
-          <h3 class="hotspot-category__heading">
-            ♡ 熱門生活圈
-          </h3>
+        <a
+          class="category-card"
+          href="formosa-boulevard-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ✦
+          </span>
 
-          <div class="category-list">
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">◒</span>
-              <span>
-                <strong class="category-card__title">
-                  旗津
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+          <span>
+            <strong class="category-card__title">
+              六合夜市／美麗島站
+            </strong>
 
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">≈</span>
-              <span>
-                <strong class="category-card__title">
-                  西子灣
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
 
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">♨</span>
-              <span>
-                <strong class="category-card__title">
-                  蓮池潭
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
-          </div>
-        </section>
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
 
-        <section class="hotspot-category category--other">
-          <h3 class="hotspot-category__heading">
-            ⌂ 其他地點
-          </h3>
+        <a
+          class="category-card"
+          href="weiwuying-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ⌘
+          </span>
 
-          <div class="category-list">
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">⌂</span>
-              <span>
-                <strong class="category-card__title">
-                  佛光山佛陀紀念館
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+          <span>
+            <strong class="category-card__title">
+              衛武營
+            </strong>
 
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">◌</span>
-              <span>
-                <strong class="category-card__title">
-                  田寮月世界
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
 
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">⌂</span>
-              <span>
-                <strong class="category-card__title">
-                  旗山老街
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+      </div>
+    </section>
 
-            <a class="category-card" href="#">
-              <span class="category-card__icon" aria-hidden="true">♧</span>
-              <span>
-                <strong class="category-card__title">
-                  美濃
-                </strong>
-                <span class="category-card__intro">
-                  查看附近停車場、車位狀態與導航
-                </span>
-              </span>
-              <span class="category-card__arrow" aria-hidden="true">›</span>
-            </a>
-          </div>
-        </section>
-      </section>
-    </main>
+    <section class="hotspot-category category--life">
+      <h3 class="hotspot-category__heading">
+        ♡ 熱門生活圈
+      </h3>
 
-    <footer class="site-footer">
-      <p>
-        即時空位可能隨車輛進出變動，請以現場資訊為準。
-      </p>
-    </footer>
+      <div class="category-list">
+        <a
+          class="category-card"
+          href="cijin-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ◒
+          </span>
 
-    <noscript>
-      <p class="error-message">
-        此頁面需要啟用 JavaScript，才能搜尋附近停車場。
-      </p>
-    </noscript>
+          <span>
+            <strong class="category-card__title">
+              旗津
+            </strong>
 
-    <script src="data.js"></script>
-    <script src="script.js?v=20260607-01"></script>
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+
+        <a
+          class="category-card"
+          href="xiziwan-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ≈
+          </span>
+
+          <span>
+            <strong class="category-card__title">
+              西子灣
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+
+        <a
+          class="category-card"
+          href="lotus-pond-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ♨
+          </span>
+
+          <span>
+            <strong class="category-card__title">
+              蓮池潭
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="hotspot-category category--other">
+      <h3 class="hotspot-category__heading">
+        ⌂ 其他地點
+      </h3>
+
+      <div class="category-list">
+        <a
+          class="category-card"
+          href="fo-guang-shan-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ⌂
+          </span>
+
+          <span>
+            <strong class="category-card__title">
+              佛光山佛陀紀念館
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+
+        <a
+          class="category-card"
+          href="moon-world-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ◌
+          </span>
+
+          <span>
+            <strong class="category-card__title">
+              田寮月世界
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+
+        <a
+          class="category-card"
+          href="qishan-old-street-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ⌂
+          </span>
+
+          <span>
+            <strong class="category-card__title">
+              旗山老街
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+
+        <a
+          class="category-card"
+          href="meinong-parking.html"
+        >
+          <span
+            class="category-card__icon"
+            aria-hidden="true"
+          >
+            ♧
+          </span>
+
+          <span>
+            <strong class="category-card__title">
+              美濃
+            </strong>
+
+            <span class="category-card__intro">
+              查看附近停車場、車位狀態與導航
+            </span>
+          </span>
+
+          <span
+            class="category-card__arrow"
+            aria-hidden="true"
+          >
+            ›
+          </span>
+        </a>
+      </div>
+    </section>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>
+    即時空位可能隨車輛進出變動，請以現場資訊為準。
+  </p>
+</footer>
+
+<noscript>
+  <p class="error-message">
+    此頁面需要啟用 JavaScript，才能搜尋附近停車場。
+  </p>
+</noscript>
+
+<script src="data.js?v=20260607-03"></script>
+<script src="script.js?v=20260607-03"></script>
+```
+
   </body>
 </html>
