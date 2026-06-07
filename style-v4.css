@@ -1797,3 +1797,16 @@ input::placeholder {
     font-size: 13px !important;
   }
 }
+/* =========================================================
+   2026-06-07 隱藏停車場排序標籤
+   - 系統內部仍依距離熱門地點由近到遠排列
+   - 畫面不再顯示「距離最近／第 2 近」等文字
+   ========================================================= */
+
+.parking-rank {
+  display: none !important;
+}
+
+.parking-card__topline {
+  justify-content: flex-end !important;
+}
