@@ -1,4 +1,3 @@
-```javascript
 /**
  * parking-core.js
  * 高雄熱門地點停車推薦網站：共用停車核心模組
@@ -1091,5 +1090,4 @@
       rankLabel
     });
 })(window);
-```
 
