@@ -4,7 +4,7 @@
  *
  * 本檔案只保留：
  * 1. 熱門地點名稱
- * 2. 固定座標
+ * 2. 固定搜尋中心座標
  * 3. 搜尋關鍵字
  * 4. 頁面網址
  * 5. 測試與公開狀態
@@ -30,25 +30,38 @@
   });
 
   /**
-   * 熱門地點清單
-   *
    * 狀態規則：
-   * enabled: true
-   *   → 可顯示於首頁熱門地點入口
-   *
-   * indexable: true
-   *   → 通過測試，可加入 sitemap 並允許 Google 收錄
    *
    * coordinateVerified: true
-   *   → 搜尋中心座標已完成核對與實際測試
+   *   → 已填入固定搜尋中心座標，可啟動即時停車測試
    *
-   * 尚未完成測試的地點：
-   * - enabled 必須維持 false
-   * - indexable 必須維持 false
-   * - latitude 與 longitude 先填 null
+   * enabled: true
+   *   → 可由首頁搜尋並開啟熱門地點頁
+   *
+   * indexable: true
+   *   → 已通過後續人工檢查，可加入 sitemap 並允許 Google 收錄
+   *
+   * 注意：
+   * - 所有地點本次一次填入座標，先開放測試。
+   * - 除已正式確認的頁面外，indexable 仍維持 false。
    */
+  function makeHotspot(config) {
+    return Object.freeze({
+      initialRadiusMeters: DEFAULT_SEARCH_SETTINGS.initialRadiusMeters,
+      maximumRadiusMeters: DEFAULT_SEARCH_SETTINGS.maximumRadiusMeters,
+      minimumResults: DEFAULT_SEARCH_SETTINGS.minimumResults,
+      coordinateVerified: true,
+      enabled: true,
+      indexable: false,
+      ...config,
+      keywords: Array.isArray(config.keywords)
+        ? config.keywords.slice()
+        : []
+    });
+  }
+
   const HOTSPOTS = [
-    {
+    makeHotspot({
       id: "pier2",
       slug: "pier2-parking.html",
       name: "駁二／棧貳庫／大港橋",
@@ -65,61 +78,44 @@
         "快速查看駁二附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.619889,
       longitude: 120.281722,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: true,
-      enabled: true,
       indexable: true
-    },
-    
-{
-  id: "yancheng",
-  slug: "yancheng-parking.html",
-  name: "鹽埕區",
-  title: "鹽埕區停車場推薦",
-  category: "港區／亞灣",
-  keywords: [
-    "鹽埕區停車",
-    "鹽埕停車場",
-    "鹽埕埔停車"
-  ],
-  intro:
-    "快速查看鹽埕區附近路外停車場即時剩餘空位、距離與導航。",
-  latitude: 22.62694,
-  longitude: 120.28806,
-  initialRadiusMeters: 800,
-  maximumRadiusMeters: 3000,
-  minimumResults: 5,
-  coordinateVerified: true,
-  enabled: true,
-  indexable: false
-},
+    }),
 
-{
-  id: "kaohsiung-music-center",
-  slug: "kaohsiung-music-center-parking.html",
-  name: "高雄流行音樂中心",
-  title: "高雄流行音樂中心停車場推薦",
-  category: "港區／亞灣",
-  keywords: [
-    "高雄流行音樂中心停車",
-    "高流停車",
-    "高流停車場"
-  ],
-  intro:
-    "快速查看高雄流行音樂中心附近路外停車場即時剩餘空位、距離與導航。",
-  latitude: 22.6178,
-  longitude: 120.2889,
-  initialRadiusMeters: 800,
-  maximumRadiusMeters: 3000,
-  minimumResults: 5,
-  coordinateVerified: true,
-  enabled: true,
-  indexable: false
-},
+    makeHotspot({
+      id: "yancheng",
+      slug: "yancheng-parking.html",
+      name: "鹽埕區",
+      title: "鹽埕區停車場推薦",
+      category: "港區／亞灣",
+      keywords: [
+        "鹽埕區停車",
+        "鹽埕停車場",
+        "鹽埕埔停車"
+      ],
+      intro:
+        "快速查看鹽埕區附近路外停車場即時剩餘空位、距離與導航。",
+      latitude: 22.62694,
+      longitude: 120.28806
+    }),
 
-    {
+    makeHotspot({
+      id: "kaohsiung-music-center",
+      slug: "kaohsiung-music-center-parking.html",
+      name: "高雄流行音樂中心",
+      title: "高雄流行音樂中心停車場推薦",
+      category: "港區／亞灣",
+      keywords: [
+        "高雄流行音樂中心停車",
+        "高流停車",
+        "高流停車場"
+      ],
+      intro:
+        "快速查看高雄流行音樂中心附近路外停車場即時剩餘空位、距離與導航。",
+      latitude: 22.6178,
+      longitude: 120.2889
+    }),
+
+    makeHotspot({
       id: "love-river",
       slug: "love-river-parking.html",
       name: "愛河",
@@ -132,17 +128,11 @@
       ],
       intro:
         "快速查看愛河附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.62486,
+      longitude: 120.28912
+    }),
 
-    {
+    makeHotspot({
       id: "kaohsiung-arena",
       slug: "kaohsiung-arena-parking.html",
       name: "高雄巨蛋／巨蛋商圈",
@@ -155,17 +145,11 @@
       ],
       intro:
         "快速查看高雄巨蛋與巨蛋商圈附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.66917,
+      longitude: 120.30194
+    }),
 
-    {
+    makeHotspot({
       id: "xinkujiang-central-park",
       slug: "xinkujiang-central-park-parking.html",
       name: "新堀江／中央公園",
@@ -178,17 +162,11 @@
       ],
       intro:
         "快速查看新堀江與中央公園附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.62364,
+      longitude: 120.30147
+    }),
 
-    {
+    makeHotspot({
       id: "dali-department-store",
       slug: "dali-department-store-parking.html",
       name: "大立百貨",
@@ -201,17 +179,11 @@
       ],
       intro:
         "快速查看大立百貨附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.62251,
+      longitude: 120.29751
+    }),
 
-    {
+    makeHotspot({
       id: "hanshin-department-store",
       slug: "hanshin-department-store-parking.html",
       name: "漢神百貨",
@@ -224,17 +196,11 @@
       ],
       intro:
         "快速查看漢神百貨附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.61978,
+      longitude: 120.29605
+    }),
 
-    {
+    makeHotspot({
       id: "sanduo-shopping-district",
       slug: "sanduo-shopping-district-parking.html",
       name: "三多商圈",
@@ -247,17 +213,11 @@
       ],
       intro:
         "快速查看三多商圈附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.6137,
+      longitude: 120.30448
+    }),
 
-    {
+    makeHotspot({
       id: "dream-mall",
       slug: "dream-mall-parking.html",
       name: "夢時代購物中心",
@@ -270,17 +230,11 @@
       ],
       intro:
         "快速查看夢時代附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.59515,
+      longitude: 120.30617
+    }),
 
-    {
+    makeHotspot({
       id: "ruifeng-night-market",
       slug: "ruifeng-night-market-parking.html",
       name: "瑞豐夜市",
@@ -293,17 +247,11 @@
       ],
       intro:
         "快速查看瑞豐夜市附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.66657,
+      longitude: 120.29962
+    }),
 
-    {
+    makeHotspot({
       id: "formosa-boulevard",
       slug: "formosa-boulevard-parking.html",
       name: "美麗島站／六合夜市",
@@ -316,17 +264,11 @@
       ],
       intro:
         "快速查看美麗島站與六合夜市附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.63139,
+      longitude: 120.30195
+    }),
 
-    {
+    makeHotspot({
       id: "weiwuying",
       slug: "weiwuying-parking.html",
       name: "衛武營國家藝術文化中心",
@@ -339,17 +281,11 @@
       ],
       intro:
         "快速查看衛武營附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.62508,
+      longitude: 120.34267
+    }),
 
-    {
+    makeHotspot({
       id: "cijin",
       slug: "cijin-parking.html",
       name: "旗津",
@@ -361,18 +297,12 @@
         "旗津老街停車"
       ],
       intro:
-        "快速查看旗津附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+        "快速查看旗津老街與渡輪站附近路外停車場即時剩餘空位、距離與導航。",
+      latitude: 22.61298,
+      longitude: 120.26841
+    }),
 
-    {
+    makeHotspot({
       id: "xiziwan",
       slug: "xiziwan-parking.html",
       name: "西子灣",
@@ -385,17 +315,11 @@
       ],
       intro:
         "快速查看西子灣附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.62187,
+      longitude: 120.26473
+    }),
 
-    {
+    makeHotspot({
       id: "lotus-pond",
       slug: "lotus-pond-parking.html",
       name: "蓮池潭",
@@ -408,40 +332,29 @@
       ],
       intro:
         "快速查看蓮池潭附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.678695,
+      longitude: 120.29691
+    }),
 
-    {
+    makeHotspot({
       id: "fo-guang-shan",
       slug: "fo-guang-shan-parking.html",
-      name: "佛光山",
-      title: "佛光山停車場推薦",
+      name: "佛光山佛陀紀念館",
+      title: "佛光山佛陀紀念館停車場推薦",
       category: "郊區／觀光",
       keywords: [
         "佛光山停車",
         "佛光山停車場",
-        "佛陀紀念館停車"
+        "佛陀紀念館停車",
+        "佛光山佛陀紀念館停車"
       ],
       intro:
-        "快速查看佛光山附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+        "快速查看佛光山佛陀紀念館附近路外停車場即時剩餘空位、距離與導航。",
+      latitude: 22.75505,
+      longitude: 120.44552
+    }),
 
-    {
+    makeHotspot({
       id: "moon-world",
       slug: "moon-world-parking.html",
       name: "田寮月世界",
@@ -454,17 +367,11 @@
       ],
       intro:
         "快速查看田寮月世界附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.88678,
+      longitude: 120.38818
+    }),
 
-    {
+    makeHotspot({
       id: "qishan-old-street",
       slug: "qishan-old-street-parking.html",
       name: "旗山老街",
@@ -477,21 +384,15 @@
       ],
       intro:
         "快速查看旗山老街附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    },
+      latitude: 22.88573,
+      longitude: 120.48363
+    }),
 
-    {
+    makeHotspot({
       id: "meinong",
       slug: "meinong-parking.html",
-      name: "美濃",
-      title: "美濃停車場推薦",
+      name: "美濃老街",
+      title: "美濃老街停車場推薦",
       category: "郊區／觀光",
       keywords: [
         "美濃停車",
@@ -499,21 +400,12 @@
         "美濃老街停車"
       ],
       intro:
-        "快速查看美濃附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: null,
-      longitude: null,
-      initialRadiusMeters: 800,
-      maximumRadiusMeters: 3000,
-      minimumResults: 5,
-      coordinateVerified: false,
-      enabled: false,
-      indexable: false
-    }
+        "快速查看美濃老街附近路外停車場即時剩餘空位、距離與導航。",
+      latitude: 22.90075,
+      longitude: 120.54048
+    })
   ];
 
-  /**
-   * 檔名正規化。
-   */
   function normalizeSlug(value) {
     return String(value || "")
       .trim()
@@ -523,9 +415,6 @@
       .split("#")[0];
   }
 
-  /**
-   * 複製單筆資料，避免其他程式意外修改原始設定。
-   */
   function cloneHotspot(hotspot) {
     if (!hotspot) {
       return null;
@@ -539,40 +428,26 @@
     };
   }
 
-  /**
-   * 依照 id 取得熱門地點。
-   */
   function findById(id) {
-    const hotspot = HOTSPOTS.find(
-      (item) => item.id === id
+    return cloneHotspot(
+      HOTSPOTS.find((item) => item.id === id)
     );
-
-    return cloneHotspot(hotspot);
   }
 
-  /**
-   * 依照 HTML 檔名取得熱門地點。
-   */
   function findBySlug(slug) {
     const normalizedSlug = normalizeSlug(slug);
 
-    const hotspot = HOTSPOTS.find(
-      (item) => item.slug === normalizedSlug
+    return cloneHotspot(
+      HOTSPOTS.find(
+        (item) => item.slug === normalizedSlug
+      )
     );
-
-    return cloneHotspot(hotspot);
   }
 
-  /**
-   * 依照目前頁面網址取得熱門地點。
-   */
   function findByCurrentPage() {
     return findBySlug(global.location.pathname);
   }
 
-  /**
-   * 取得首頁可顯示的熱門地點。
-   */
   function getEnabledHotspots() {
     return HOTSPOTS
       .filter(
@@ -585,9 +460,6 @@
       .map(cloneHotspot);
   }
 
-  /**
-   * 取得允許 Google 收錄的熱門地點。
-   */
   function getIndexableHotspots() {
     return HOTSPOTS
       .filter(
@@ -601,11 +473,6 @@
       .map(cloneHotspot);
   }
 
-  /**
-   * 取得全部熱門地點。
-   *
-   * 後續測試與管理用途可使用。
-   */
   function getAllHotspots() {
     return HOTSPOTS.map(cloneHotspot);
   }
