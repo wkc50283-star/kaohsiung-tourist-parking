@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/pier2-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/kaohsiung-music-center-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/love-river-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/xiziwan-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/cijin-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/lotus-pond-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/weiwuying-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/formosa-boulevard-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/fo-guang-shan-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/moon-world-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/qishan-old-street-parking.html</loc></url>
-  <url><loc>https://wkc50283-star.github.io/kaohsiung-parking/meinong-parking.html</loc></url>
+
+  <url>
+    <loc>https://wkc50283-star.github.io/kaohsiung-tourist-parking/</loc>
+  </url>
+
+  <url>
+    <loc>https://wkc50283-star.github.io/kaohsiung-tourist-parking/pier2-parking.html</loc>
+  </url>
+
 </urlset>
