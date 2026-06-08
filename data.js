@@ -337,41 +337,6 @@
     }),
 
     makeHotspot({
-      id: "fo-guang-shan",
-      slug: "fo-guang-shan-parking.html",
-      name: "佛光山佛陀紀念館",
-      title: "佛光山佛陀紀念館停車場推薦",
-      category: "郊區／觀光",
-      keywords: [
-        "佛光山停車",
-        "佛光山停車場",
-        "佛陀紀念館停車",
-        "佛光山佛陀紀念館停車"
-      ],
-      intro:
-        "快速查看佛光山佛陀紀念館附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: 22.75505,
-      longitude: 120.44552
-    }),
-
-    makeHotspot({
-      id: "moon-world",
-      slug: "moon-world-parking.html",
-      name: "田寮月世界",
-      title: "田寮月世界停車場推薦",
-      category: "郊區／觀光",
-      keywords: [
-        "田寮月世界停車",
-        "月世界停車場",
-        "田寮月世界停車場"
-      ],
-      intro:
-        "快速查看田寮月世界附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: 22.88678,
-      longitude: 120.38818
-    }),
-
-    makeHotspot({
       id: "qishan-old-street",
       slug: "qishan-old-street-parking.html",
       name: "旗山老街",
@@ -387,23 +352,7 @@
       latitude: 22.88573,
       longitude: 120.48363
     }),
-
-    makeHotspot({
-      id: "meinong",
-      slug: "meinong-parking.html",
-      name: "美濃老街",
-      title: "美濃老街停車場推薦",
-      category: "郊區／觀光",
-      keywords: [
-        "美濃停車",
-        "美濃停車場",
-        "美濃老街停車"
-      ],
-      intro:
-        "快速查看美濃老街附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: 22.90075,
-      longitude: 120.54048
-    })
+    
   ];
 
   function normalizeSlug(value) {
