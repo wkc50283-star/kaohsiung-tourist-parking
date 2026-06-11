@@ -21,7 +21,7 @@
 
   const DEFAULT_CONFIG = Object.freeze({
     // 若正式 Vercel 網址不同，只修改這一行。
-    apiUrl: "https://kaohsiung-parking-api-test.vercel.app/api/nearby-data",
+    apiUrl: "https://kaohsiung-parking-api.vercel.app/api/nearby-data",
     requestTimeoutMs: 12000,
     staleAfterMinutes: 20,
     minimumResults: 5,
