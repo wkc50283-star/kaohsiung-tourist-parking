@@ -297,7 +297,7 @@
         elements.locationStatus,
         `已取得目前位置${formatAccuracy(
           currentLocation
-        )}。停車場依距離目前位置由近到遠排列。`
+        )}。系統已優先列出目前位置附近仍有空位的停車場。實際行車路線與時間，請以 Google 地圖導航為準。`
       );
 
       setText(

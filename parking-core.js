@@ -955,16 +955,7 @@
     ).format(date);
   }
 
-  function rankLabel(index) {
-    return index === 0
-      ? "距離最近"
-      : `第 ${index + 1} 近`;
-  }
-
-  function createParkingCardHtml(
-    lot,
-    index
-  ) {
+  function createParkingCardHtml(lot) {
     const navigationUrl =
       buildGoogleMapsNavigationUrl(lot);
 
@@ -975,10 +966,6 @@
     return `
       <article class="parking-card">
         <div class="parking-card__topline">
-          <span class="parking-rank">
-            ${escapeHtml(rankLabel(index))}
-          </span>
-
           <span class="parking-availability">
             剩餘 ${escapeHtml(
               lot.availableSpaces
@@ -991,17 +978,6 @@
         </h3>
 
         <dl class="parking-card__details">
-          <div>
-            <dt>距離</dt>
-            <dd>
-              ${escapeHtml(
-                formatDistance(
-                  lot.distanceMeters
-                )
-              )}
-            </dd>
-          </div>
-
           <div>
             <dt>總格位</dt>
             <dd>
@@ -1086,8 +1062,7 @@
       createParkingCardHtml,
       renderParkingCards,
       formatDistance,
-      formatLocalTime,
-      rankLabel
+      formatLocalTime
     });
 })(window);
 

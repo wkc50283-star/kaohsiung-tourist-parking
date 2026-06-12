@@ -148,7 +148,7 @@
 
       setText(
         elements.liveStatus,
-        "已完成即時資料更新。停車場依距離由近到遠排列。"
+        "已完成即時資料更新。系統已優先列出目的地附近目前仍有空位的停車場。實際行車路線與時間，請以 Google 地圖導航為準。"
       );
 
       setText(elements.summary, buildSummary(result));
