@@ -444,6 +444,13 @@ input::placeholder {
   text-align: center;
 }
 
+.homepage-parking-note {
+  text-align: left;
+  color: #42576c;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
 .quick-links,
 .quick-shortcuts {
   display: grid;
