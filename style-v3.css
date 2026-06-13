@@ -244,10 +244,10 @@ img {
 .homepage-announcements__viewport {
   min-width: 0;
   overflow: hidden;
-  color: #42576c;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.5;
+  color: #c62828;
+  font-size: clamp(18px, 3vw, 20px);
+  font-weight: 400;
+  line-height: 1.35;
   white-space: nowrap;
 }
 
