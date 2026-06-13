@@ -41,6 +41,39 @@
   </div>
 </header>
 
+<section
+  class="homepage-announcements"
+  aria-label="最新公告"
+  data-homepage-announcements
+>
+  <div class="homepage-announcements__inner">
+    <span class="homepage-announcements__label">
+      📢 最新公告
+    </span>
+
+    <div class="homepage-announcements__viewport">
+      <div
+        class="homepage-announcements__track"
+        data-announcement-track
+      >
+        <span data-announcement-text>
+          新功能｜即時空位停車場篩選已上線，出發前可重新整理最新資料。
+        </span>
+      </div>
+    </div>
+
+    <button
+      class="homepage-announcements__toggle"
+      type="button"
+      aria-label="暫停最新公告播放"
+      aria-pressed="false"
+      data-announcement-toggle
+    >
+      暫停
+    </button>
+  </div>
+</section>
+
 <section class="home-hero">
   <div class="home-hero__content">
     <p class="hero-eyebrow">
@@ -730,6 +763,7 @@
 
 <script src="data.js?v=20260607-03"></script>
 <script src="script.js?v=20260607-03"></script>
+<script src="homepage-announcements.js?v=20260613-01"></script>
 
   </body>
 </html>
