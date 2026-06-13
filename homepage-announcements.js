@@ -12,6 +12,17 @@
     "網站更新｜停車場卡片已簡化，優先顯示空位、更新時間與導航。",
     "功能預告｜地址與店家搜尋功能正在測試中。"
   ];
+  const SEPARATOR = "\u00A0\u00A0\u00A0\u00A0\u00A0";
+
+  function buildAnnouncementLoop() {
+    const announcementGroup =
+      ANNOUNCEMENTS.join(SEPARATOR);
+
+    return [
+      announcementGroup,
+      announcementGroup
+    ].join(SEPARATOR);
+  }
 
   function setButtonState(button, isPaused) {
     button.textContent = isPaused ? "播放" : "暫停";
@@ -51,12 +62,7 @@
     const reducedMotionQuery = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     );
-    let announcementIndex = 0;
     let isPaused = false;
-
-    function showAnnouncement(index) {
-      text.textContent = ANNOUNCEMENTS[index];
-    }
 
     function applyPausedState(nextPaused) {
       isPaused = nextPaused;
@@ -69,8 +75,7 @@
 
     function applyMotionPreference() {
       if (reducedMotionQuery.matches) {
-        announcementIndex = 0;
-        showAnnouncement(announcementIndex);
+        text.textContent = ANNOUNCEMENTS[0];
         root.classList.add("is-paused");
         toggle.hidden = true;
         toggle.disabled = true;
@@ -82,18 +87,8 @@
       applyPausedState(isPaused);
     }
 
-    showAnnouncement(announcementIndex);
+    text.textContent = buildAnnouncementLoop();
     applyMotionPreference();
-
-    track.addEventListener("animationiteration", function () {
-      if (isPaused || reducedMotionQuery.matches) {
-        return;
-      }
-
-      announcementIndex =
-        (announcementIndex + 1) % ANNOUNCEMENTS.length;
-      showAnnouncement(announcementIndex);
-    });
 
     toggle.addEventListener("click", function () {
       applyPausedState(!isPaused);

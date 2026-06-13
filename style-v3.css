@@ -254,7 +254,7 @@ img {
 .homepage-announcements__track {
   display: inline-block;
   min-width: max-content;
-  animation: homepage-announcement-scroll 18s linear infinite;
+  animation: homepage-announcement-scroll 36s linear infinite;
   will-change: transform;
 }
 
@@ -276,11 +276,11 @@ img {
 
 @keyframes homepage-announcement-scroll {
   from {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
 
   to {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
