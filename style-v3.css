@@ -1187,172 +1187,237 @@ input::placeholder {
    ========================================================= */
 
 @media (max-width: 520px) {
+  body.home-page .site-header {
+    width: calc(100% - 14px) !important;
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+    border-radius: 16px !important;
+  }
+
+  body.home-page .site-header__inner {
+    min-height: 42px !important;
+    padding: 0 10px !important;
+    gap: 8px !important;
+  }
+
+  body.home-page .site-brand {
+    gap: 6px !important;
+    font-size: 16px !important;
+  }
+
+  body.home-page .site-brand::before {
+    width: 25px !important;
+    height: 25px !important;
+    border-radius: 50% 50% 50% 10px !important;
+    font-size: 13px !important;
+  }
+
+  body.home-page .site-header__right {
+    gap: 6px !important;
+  }
+
+  body.home-page .site-nav-link {
+    padding: 5px 6px !important;
+    font-size: 14px !important;
+    line-height: 1.1 !important;
+  }
+
+  body.home-page .homepage-announcements {
+    margin: 0 auto 4px !important;
+  }
+
+  body.home-page .homepage-announcements__inner {
+    min-height: 29px !important;
+    gap: 6px !important;
+    padding-inline: 8px !important;
+  }
+
+  body.home-page .homepage-announcements__viewport {
+    line-height: 1.25 !important;
+  }
+
+  body.home-page .homepage-announcements__toggle {
+    min-height: 24px !important;
+    padding: 3px 6px !important;
+    font-size: 12px !important;
+    line-height: 1.1 !important;
+  }
+
   /* 首頁 Hero：寬度和搜尋卡一致，並明顯縮短高度 */
-  .home-hero {
+  body.home-page .home-hero {
     width: calc(100% - 28px) !important;
     min-height: 0 !important;
-    margin: 8px auto 0 !important;
-    padding: 22px 16px 38px !important;
-    border-radius: 20px !important;
+    margin: 0 auto !important;
+    padding: 12px 12px 26px !important;
+    border-radius: 16px !important;
     background-position: 56% center !important;
     background-size: cover !important;
   }
 
-  .home-hero::after {
-    height: 22px !important;
+  body.home-page .home-hero::after {
+    height: 14px !important;
   }
 
-  .home-hero .hero-eyebrow {
-    margin-bottom: 4px !important;
-    font-size: 12px !important;
-  }
-
-  .home-hero .hero-title {
-    font-size: 30px !important;
-    line-height: 1.02 !important;
-    letter-spacing: -0.055em !important;
-  }
-
-  .home-hero .hero-question {
-    margin-top: 11px !important;
-    font-size: 20px !important;
+  body.home-page .home-hero .hero-eyebrow {
+    margin-bottom: 2px !important;
+    font-size: 11px !important;
     line-height: 1.15 !important;
   }
 
-  .home-hero .hero-description {
+  body.home-page .home-hero .hero-title {
+    font-size: 24px !important;
+    line-height: 1 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  body.home-page .home-hero .hero-question {
+    margin-top: 5px !important;
+    font-size: 17px !important;
+    line-height: 1.08 !important;
+  }
+
+  body.home-page .home-hero .hero-description {
     max-width: 230px !important;
-    margin-top: 6px !important;
-    font-size: 14px !important;
-    line-height: 1.48 !important;
+    margin-top: 3px !important;
+    font-size: 12px !important;
+    line-height: 1.32 !important;
   }
 
   /* 搜尋卡往上貼近 Hero */
-  .home-main,
-  .homepage-main {
+  body.home-page .home-main,
+  body.home-page .homepage-main {
     padding-inline: 14px !important;
+    padding-bottom: 20px !important;
   }
 
-  .home-main .search-card,
-  .homepage-main .homepage-action-panel {
-    margin-top: -24px !important;
-    padding: 12px !important;
-    border-radius: 20px !important;
+  body.home-page .home-main .search-card,
+  body.home-page .homepage-main .homepage-action-panel {
+    margin-top: -16px !important;
+    padding: 9px !important;
+    border-radius: 16px !important;
   }
 
-  .search-row {
+  body.home-page .search-row {
     grid-template-columns: minmax(0, 1fr) 78px !important;
-    gap: 7px !important;
+    gap: 5px !important;
   }
 
-  .search-input,
-  input[type="search"],
-  input[type="text"] {
+  body.home-page .search-input,
+  body.home-page input[type="search"],
+  body.home-page input[type="text"] {
     min-height: 48px !important;
-    padding-inline: 11px !important;
-    border-radius: 15px !important;
+    padding-inline: 10px !important;
+    border-radius: 13px !important;
     font-size: 14px !important;
   }
 
-  .search-button,
-  .primary-button {
+  body.home-page .search-button,
+  body.home-page .primary-button {
     min-height: 48px !important;
-    padding-inline: 11px !important;
-    border-radius: 15px !important;
+    padding-inline: 9px !important;
+    border-radius: 13px !important;
     font-size: 16px !important;
   }
 
-  .nearby-button,
-  .secondary-action-button,
-  .view-nearby-button {
-    min-height: 44px !important;
-    margin-top: 9px !important;
+  body.home-page .nearby-button,
+  body.home-page .secondary-action-button,
+  body.home-page .view-nearby-button {
+    min-height: 48px !important;
+    margin-top: 5px !important;
     padding-block: 8px !important;
-    border-radius: 14px !important;
+    border-radius: 13px !important;
     font-size: 15px !important;
   }
 
-  .location-help,
-  .search-help {
-    margin-top: 4px !important;
+  body.home-page .location-help,
+  body.home-page .search-help {
+    margin-top: 3px !important;
     font-size: 12px !important;
+    line-height: 1.35 !important;
   }
 
-  .quick-links,
-  .quick-shortcuts {
-    gap: 5px !important;
-    margin-top: 10px !important;
+  body.home-page .homepage-parking-note {
+    line-height: 1.38 !important;
   }
 
-  .quick-chip,
-  .shortcut-chip {
-    min-height: 34px !important;
-    padding: 5px 3px !important;
+  body.home-page .quick-links,
+  body.home-page .quick-shortcuts {
+    gap: 4px !important;
+    margin-top: 6px !important;
+  }
+
+  body.home-page .quick-chip,
+  body.home-page .shortcut-chip {
+    min-height: 32px !important;
+    padding: 4px 3px !important;
     font-size: 12px !important;
   }
 
   /* 首頁分類區更緊湊 */
-  .hotspot-area,
-  .homepage-hotspot-section,
-  .category-section {
-    margin-top: 24px !important;
+  body.home-page .hotspot-area,
+  body.home-page .homepage-hotspot-section,
+  body.home-page .category-section {
+    margin-top: 10px !important;
   }
 
-  .section-title {
-    font-size: 23px !important;
+  body.home-page .section-title {
+    font-size: 20px !important;
+    line-height: 1.1 !important;
   }
 
-  .hotspot-category {
-    margin-top: 14px !important;
+  body.home-page .hotspot-category {
+    margin-top: 8px !important;
   }
 
-  .hotspot-category__heading {
-    margin-bottom: 6px !important;
-    font-size: 18px !important;
-  }
-
-  .category-list,
-  .hotspot-list {
-    gap: 6px !important;
-  }
-
-  .hotspot-card,
-  .category-card {
-    grid-template-columns: 38px minmax(0, 1fr) auto !important;
-    min-height: 52px !important;
-    gap: 6px !important;
-    padding: 4px 8px 4px 5px !important;
-    border-radius: 14px !important;
-  }
-
-  .hotspot-card__icon,
-  .category-card__icon {
-    width: 38px !important;
-    height: 38px !important;
-    border-radius: 11px !important;
-    font-size: 17px !important;
-  }
-
-  .hotspot-card__title,
-  .category-card__title {
-    font-size: 15px !important;
+  body.home-page .hotspot-category__heading {
+    margin-bottom: 4px !important;
+    font-size: 16px !important;
     line-height: 1.18 !important;
   }
 
-  .hotspot-card__intro,
-  .category-card__intro {
+  body.home-page .category-list,
+  body.home-page .hotspot-list {
+    gap: 5px !important;
+  }
+
+  body.home-page .hotspot-card,
+  body.home-page .category-card {
+    grid-template-columns: 34px minmax(0, 1fr) auto !important;
+    min-height: 46px !important;
+    gap: 5px !important;
+    padding: 4px 7px 4px 5px !important;
+    border-radius: 12px !important;
+  }
+
+  body.home-page .hotspot-card__icon,
+  body.home-page .category-card__icon {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+  }
+
+  body.home-page .hotspot-card__title,
+  body.home-page .category-card__title {
+    font-size: 14px !important;
+    line-height: 1.14 !important;
+  }
+
+  body.home-page .hotspot-card__intro,
+  body.home-page .category-card__intro {
     display: block !important;
     margin-top: 1px !important;
     overflow: hidden !important;
     color: var(--color-text-soft) !important;
-    font-size: 11px !important;
-    line-height: 1.2 !important;
+    font-size: 10px !important;
+    line-height: 1.16 !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
   }
 
-  .hotspot-card__action,
-  .category-card__arrow {
-    font-size: 20px !important;
+  body.home-page .hotspot-card__action,
+  body.home-page .category-card__arrow {
+    font-size: 18px !important;
   }
 
   /* 結果頁 Hero 稍微縮短 */
