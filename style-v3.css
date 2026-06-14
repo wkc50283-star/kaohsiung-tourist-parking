@@ -359,12 +359,27 @@ img {
   text-shadow: 0 2px 1px rgba(255, 255, 255, 0.72);
 }
 
+.home-hero .hero-title {
+  line-height: 1.24;
+  letter-spacing: -0.025em;
+}
+
 .hero-question {
-  margin: 20px 0 0;
+  margin: 10px 0 0;
   color: var(--color-primary-deep);
   font-size: clamp(22px, 5.5vw, 30px);
   font-weight: 850;
-  line-height: 1.24;
+  line-height: 1.26;
+}
+
+.hero-question::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin-top: 20px;
+  border-radius: 999px;
+  background: var(--color-primary-bright);
 }
 
 .hero-description,
@@ -375,6 +390,11 @@ img {
   font-size: 17px;
   font-weight: 560;
   line-height: 1.68;
+}
+
+.home-hero .hero-description {
+  margin-top: 24px;
+  line-height: 1.62;
 }
 
 /* 結果頁 Hero 較精簡 */
@@ -1288,7 +1308,7 @@ input::placeholder {
     width: calc(100% - 28px) !important;
     min-height: 0 !important;
     margin: 0 auto !important;
-    padding: 12px 12px 26px !important;
+    padding: 46px 30px 58px !important;
     border-radius: 16px !important;
     background-position: 56% center !important;
     background-size: cover !important;
@@ -1305,22 +1325,28 @@ input::placeholder {
   }
 
   body.home-page .home-hero .hero-title {
-    font-size: 24px !important;
-    line-height: 1 !important;
-    letter-spacing: -0.055em !important;
+    font-size: 31px !important;
+    line-height: 1.24 !important;
+    letter-spacing: -0.025em !important;
   }
 
   body.home-page .home-hero .hero-question {
-    margin-top: 5px !important;
-    font-size: 17px !important;
-    line-height: 1.08 !important;
+    margin-top: 8px !important;
+    font-size: 23px !important;
+    line-height: 1.26 !important;
+  }
+
+  body.home-page .home-hero .hero-question::after {
+    width: 42px !important;
+    height: 3px !important;
+    margin-top: 18px !important;
   }
 
   body.home-page .home-hero .hero-description {
-    max-width: 230px !important;
-    margin-top: 3px !important;
-    font-size: 12px !important;
-    line-height: 1.32 !important;
+    max-width: 260px !important;
+    margin-top: 24px !important;
+    font-size: 16px !important;
+    line-height: 1.62 !important;
   }
 
   /* 搜尋卡往上貼近 Hero */
