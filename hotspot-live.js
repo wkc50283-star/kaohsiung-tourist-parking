@@ -109,10 +109,10 @@
       result.meta.latestReliableCollectTime;
 
     if (!latest) {
-      return "即時資料更新時間：無法確認";
+      return "資料取得時間：無法確認";
     }
 
-    return `即時資料更新時間：${global.ParkingCore.formatLocalTime(latest)}`;
+    return `資料取得時間：${global.ParkingCore.formatLocalTime(latest)}`;
   }
 
   async function loadParking() {
@@ -148,7 +148,7 @@
 
       setText(
         elements.liveStatus,
-        "已完成即時資料更新。系統已優先列出目的地附近目前仍有空位的停車場。實際行車路線與時間，請以 Google 地圖導航為準。"
+        "已完成資料更新。系統會優先列出資料來源目前顯示仍有空位的附近停車場。現場狀況可能快速變動，請以停車場入口資訊為準。"
       );
 
       setText(elements.summary, buildSummary(result));
