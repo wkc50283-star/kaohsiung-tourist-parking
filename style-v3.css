@@ -927,6 +927,22 @@ input::placeholder {
   box-shadow: 0 1px 4px rgba(36, 150, 83, 0.32);
 }
 
+.parking-availability-warning {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  margin: 8px 0 0;
+  padding: 5px 9px;
+  border: 1px solid #f3c87d;
+  border-radius: 999px;
+  background: #fff6df;
+  color: #9a5a00;
+  font-size: 13px;
+  font-weight: 760;
+  line-height: 1.35;
+}
+
 .parking-card__title {
   margin: 8px 0 0;
   color: var(--color-primary-deep);
@@ -1560,6 +1576,13 @@ input::placeholder {
   .parking-availability::before {
     width: 10px !important;
     height: 10px !important;
+  }
+
+  .parking-availability-warning {
+    margin-top: 5px !important;
+    padding: 4px 7px !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
   }
 
   .parking-card__title {

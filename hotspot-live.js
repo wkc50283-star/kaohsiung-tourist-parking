@@ -99,7 +99,7 @@
       return "";
     }
 
-    return "已更新附近停車場即時空位。以下空位僅顯示一般汽車位。";
+    return "已更新附近停車場即時空位。以下空位僅顯示一般汽車位，實際車位仍以現場為準。";
   }
 
   function buildMeta(result) {

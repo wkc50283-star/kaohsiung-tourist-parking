@@ -955,6 +955,29 @@
     ).format(date);
   }
 
+  function getAvailabilityWarning(lot) {
+    if (
+      lot &&
+      (
+        lot.isAlmostFull === true ||
+        (lot.raw && lot.raw.isAlmostFull === true) ||
+        (lot.raw && lot.raw.IsAlmostFull === true)
+      )
+    ) {
+      return "車位將滿，建議準備備案";
+    }
+
+    if (
+      lot &&
+      lot.availableSpaces >= 1 &&
+      lot.availableSpaces <= 3
+    ) {
+      return "空位可能快速變動，建議準備備案";
+    }
+
+    return "";
+  }
+
   function createParkingCardHtml(lot) {
     const navigationUrl =
       buildGoogleMapsNavigationUrl(lot);
@@ -962,6 +985,8 @@
     const address = lot.address
       ? escapeHtml(lot.address)
       : "地址資料未提供";
+
+    const warning = getAvailabilityWarning(lot);
 
     return `
       <article class="parking-card">
@@ -972,6 +997,12 @@
             )} 格
           </span>
         </div>
+
+        ${warning
+          ? `<p class="parking-availability-warning">
+              ${escapeHtml(warning)}
+            </p>`
+          : ""}
 
         <h3 class="parking-card__title">
           ${escapeHtml(lot.name)}
