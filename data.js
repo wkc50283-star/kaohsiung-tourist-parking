@@ -315,8 +315,8 @@
       ],
       intro:
         "快速查看西子灣附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: 22.62187,
-      longitude: 120.26473
+      latitude: 22.62409,
+      longitude: 120.26495
     }),
 
     makeHotspot({
