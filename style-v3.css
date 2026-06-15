@@ -943,7 +943,7 @@ input::placeholder {
   line-height: 1.35;
 }
 
-.parking-availability-warning--low {
+.parking-availability-warning.parking-availability-warning--low {
   border-color: #fed7aa;
   background: #fff7ed;
   color: #c2410c;
