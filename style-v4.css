@@ -1829,10 +1829,10 @@ input::placeholder {
 .parking-availability-warning.parking-availability-warning--low {
   display: block;
   margin-top: 12px;
-  padding: 10px 12px;
-  border: 1px solid #fed7aa;
-  border-radius: 12px;
-  background: #fff7ed;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: #c2410c;
   font-weight: 700;
   line-height: 1.5;
