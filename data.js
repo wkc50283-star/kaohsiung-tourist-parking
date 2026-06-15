@@ -332,8 +332,8 @@
       ],
       intro:
         "快速查看蓮池潭附近路外停車場即時剩餘空位、距離與導航。",
-      latitude: 22.678695,
-      longitude: 120.29691
+      latitude: 22.6811,
+      longitude: 120.2933
     }),
 
     makeHotspot({
