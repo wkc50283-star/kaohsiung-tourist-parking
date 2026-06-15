@@ -967,7 +967,7 @@
       <article class="parking-card">
         <div class="parking-card__topline">
           <span class="parking-availability">
-            剩餘 ${escapeHtml(
+            一般汽車位剩餘 ${escapeHtml(
               lot.availableSpaces
             )} 格
           </span>
