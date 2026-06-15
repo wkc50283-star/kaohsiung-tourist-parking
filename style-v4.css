@@ -1822,3 +1822,18 @@ input::placeholder {
 .parking-summary {
   display: none !important;
 }
+
+.parking-card .parking-availability-warning.parking-availability-warning--low,
+.parking-card [data-warning-type="low"],
+.parking-availability-warning[data-warning-type="low"],
+.parking-availability-warning.parking-availability-warning--low {
+  display: block;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid #fed7aa;
+  border-radius: 12px;
+  background: #fff7ed;
+  color: #c2410c;
+  font-weight: 700;
+  line-height: 1.5;
+}
