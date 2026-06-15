@@ -1082,11 +1082,16 @@
         </div>
 
         ${warning
-          ? `<p class="parking-availability-warning parking-availability-warning--${escapeHtml(
+          ? `<div
+              class="parking-availability-warning parking-availability-warning--${escapeHtml(
               warning.type
-            )}">
+            )}"
+              data-warning-type="${escapeHtml(
+                warning.type
+              )}"
+            >
               ${escapeHtml(warning.message)}
-            </p>`
+            </div>`
           : ""}
 
         ${credibilityNotice
