@@ -35,6 +35,9 @@
     }
   });
 
+  const INITIAL_VISIBLE_PARKING_LOTS = 5;
+  const MAX_VISIBLE_PARKING_LOTS_AFTER_EXPAND = 15;
+
   class ParkingCoreError extends Error {
     constructor(code, message, userMessage) {
       super(message);
@@ -1076,9 +1079,45 @@
       return;
     }
 
-    element.innerHTML = lots
-      .map(createParkingCardHtml)
-      .join("\n");
+    const render = (isExpanded) => {
+      const limit = isExpanded
+        ? MAX_VISIBLE_PARKING_LOTS_AFTER_EXPAND
+        : INITIAL_VISIBLE_PARKING_LOTS;
+
+      const visibleLots = lots.slice(0, limit);
+      const canShowMore =
+        !isExpanded &&
+        lots.length > INITIAL_VISIBLE_PARKING_LOTS;
+
+      element.innerHTML = [
+        visibleLots
+          .map(createParkingCardHtml)
+          .join("\n"),
+        canShowMore
+          ? `<button
+              class="show-more-parking-button"
+              type="button"
+            >
+              顯示更多附近停車場
+            </button>`
+          : ""
+      ].filter(Boolean).join("\n");
+
+      const showMoreButton =
+        typeof element.querySelector === "function"
+          ? element.querySelector(
+              ".show-more-parking-button"
+            )
+          : null;
+
+      if (showMoreButton) {
+        showMoreButton.addEventListener("click", () => {
+          render(true);
+        });
+      }
+    };
+
+    render(false);
   }
 
   global.ParkingCore =
@@ -1096,4 +1135,3 @@
       formatLocalTime
     });
 })(window);
-

@@ -141,7 +141,7 @@
           longitude: currentHotspot.longitude
         },
         minimumResults: currentHotspot.minimumResults || 5,
-        maximumResults: 5,
+        maximumResults: 15,
         initialRadiusMeters: currentHotspot.initialRadiusMeters || 800,
         maximumRadiusMeters: currentHotspot.maximumRadiusMeters || 3000
       });

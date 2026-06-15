@@ -1014,6 +1014,26 @@ input::placeholder {
   font-size: 17px;
 }
 
+.show-more-parking-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 1px solid #bfdcf0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #eff8ff 0%, #e2f1fc 100%);
+  color: var(--color-primary);
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.parking-results .show-more-parking-button,
+.result-list .show-more-parking-button {
+  width: 100%;
+}
+
 /* =========================
    提醒與頁尾
 ========================= */
@@ -1625,6 +1645,13 @@ input::placeholder {
   .parking-navigation-button::before {
     margin-right: 4px !important;
     font-size: 14px !important;
+  }
+
+  .show-more-parking-button {
+    min-height: 38px !important;
+    padding: 7px 10px !important;
+    border-radius: 12px !important;
+    font-size: 13px !important;
   }
 
   .page-note {

@@ -288,7 +288,7 @@
             longitude: currentLocation.longitude
           },
           minimumResults: 5,
-          maximumResults: 5,
+          maximumResults: 15,
           initialRadiusMeters: 800,
           maximumRadiusMeters: 3000
         });
