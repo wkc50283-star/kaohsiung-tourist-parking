@@ -982,7 +982,10 @@
         (lot.raw && lot.raw.IsAlmostFull === true)
       )
     ) {
-      return "車位將滿，建議準備備案";
+      return {
+        type: "almost-full",
+        message: "車位將滿，建議準備備案"
+      };
     }
 
     if (
@@ -990,10 +993,13 @@
       lot.availableSpaces >= 1 &&
       lot.availableSpaces <= 3
     ) {
-      return "空位可能快速變動，建議準備備案";
+      return {
+        type: "low",
+        message: "空位可能快速變動，建議準備備案"
+      };
     }
 
-    return "";
+    return null;
   }
 
   function normalizeParkingCredibilityId(value) {
@@ -1076,8 +1082,10 @@
         </div>
 
         ${warning
-          ? `<p class="parking-availability-warning">
-              ${escapeHtml(warning)}
+          ? `<p class="parking-availability-warning parking-availability-warning--${escapeHtml(
+              warning.type
+            )}">
+              ${escapeHtml(warning.message)}
             </p>`
           : ""}
 
