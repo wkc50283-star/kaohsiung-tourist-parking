@@ -943,6 +943,29 @@ input::placeholder {
   line-height: 1.35;
 }
 
+.parking-credibility-notice {
+  display: grid;
+  gap: 3px;
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border: 1px solid #f2d39b;
+  border-radius: 12px;
+  background: #fff8e8;
+  color: #765019;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.parking-credibility-notice strong {
+  color: #8b5a13;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.parking-credibility-notice span {
+  font-weight: 650;
+}
+
 .parking-card__title {
   margin: 8px 0 0;
   color: var(--color-primary-deep);
@@ -1603,6 +1626,18 @@ input::placeholder {
     padding: 4px 7px !important;
     font-size: 11px !important;
     line-height: 1.25 !important;
+  }
+
+  .parking-credibility-notice {
+    margin-top: 5px !important;
+    padding: 6px 7px !important;
+    border-radius: 10px !important;
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+  }
+
+  .parking-credibility-notice strong {
+    font-size: 12px !important;
   }
 
   .parking-card__title {

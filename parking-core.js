@@ -38,6 +38,21 @@
   const INITIAL_VISIBLE_PARKING_LOTS = 5;
   const MAX_VISIBLE_PARKING_LOTS_AFTER_EXPAND = 15;
 
+  const PARKING_CREDIBILITY_NOTICES = Object.freeze({
+    PL_KHB00362: Object.freeze({
+      status: "low_confidence",
+      label: "資料可信度提醒",
+      message:
+        "此停車場曾出現即時空位與現場狀況不一致，建議搭配備案使用"
+    })
+  });
+
+  const PARKING_CREDIBILITY_STATUS_LABELS = Object.freeze({
+    watching: "觀察中",
+    low_confidence: "低可信度",
+    excluded: "暫時排除"
+  });
+
   class ParkingCoreError extends Error {
     constructor(code, message, userMessage) {
       super(message);
@@ -981,6 +996,63 @@
     return "";
   }
 
+  function normalizeParkingCredibilityId(value) {
+    const text = toText(value);
+
+    if (!text) {
+      return "";
+    }
+
+    if (/^KHB\d+$/i.test(text)) {
+      return `PL_${text.toUpperCase()}`;
+    }
+
+    return text.toUpperCase();
+  }
+
+  function getParkingCredibilityNotice(lot) {
+    if (!lot) {
+      return null;
+    }
+
+    const raw = lot.raw || {};
+    const ids = [
+      lot.parking_id,
+      lot.parkingId,
+      lot.id,
+      raw.parking_id,
+      raw.parkingId,
+      raw.ParkingID,
+      raw.ParkingLotID,
+      raw.CarParkID,
+      raw.carParkId,
+      raw.id
+    ].map(normalizeParkingCredibilityId);
+
+    const matchedId = ids.find((id) =>
+      Object.prototype.hasOwnProperty.call(
+        PARKING_CREDIBILITY_NOTICES,
+        id
+      )
+    );
+
+    if (!matchedId) {
+      return null;
+    }
+
+    const notice =
+      PARKING_CREDIBILITY_NOTICES[matchedId];
+
+    return Object.freeze({
+      status: notice.status,
+      statusLabel:
+        PARKING_CREDIBILITY_STATUS_LABELS[notice.status] ||
+        notice.status,
+      label: notice.label,
+      message: notice.message
+    });
+  }
+
   function createParkingCardHtml(lot) {
     const navigationUrl =
       buildGoogleMapsNavigationUrl(lot);
@@ -990,6 +1062,8 @@
       : "地址資料未提供";
 
     const warning = getAvailabilityWarning(lot);
+    const credibilityNotice =
+      getParkingCredibilityNotice(lot);
 
     return `
       <article class="parking-card">
@@ -1005,6 +1079,23 @@
           ? `<p class="parking-availability-warning">
               ${escapeHtml(warning)}
             </p>`
+          : ""}
+
+        ${credibilityNotice
+          ? `<div class="parking-credibility-notice parking-credibility-notice--${escapeHtml(
+              credibilityNotice.status
+            )}">
+              <strong>
+                ${escapeHtml(
+                  credibilityNotice.label
+                )}
+              </strong>
+              <span>
+                ${escapeHtml(
+                  credibilityNotice.message
+                )}
+              </span>
+            </div>`
           : ""}
 
         <h3 class="parking-card__title">
