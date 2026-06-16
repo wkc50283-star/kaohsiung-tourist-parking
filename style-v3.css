@@ -364,6 +364,24 @@ img {
   letter-spacing: -0.025em;
 }
 
+.home-page .homepage-announcements {
+  position: relative;
+  z-index: 25;
+}
+
+.home-page .home-hero {
+  margin-top: 0;
+}
+
+.home-page .home-hero__content {
+  max-width: 660px;
+}
+
+.home-page .home-hero .hero-title {
+  font-size: clamp(34px, 6vw, 56px);
+  line-height: 1.18;
+}
+
 .hero-question {
   margin: 10px 0 0;
   color: var(--color-primary-deep);
