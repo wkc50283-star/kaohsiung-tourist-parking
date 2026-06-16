@@ -1061,6 +1061,26 @@ input::placeholder {
   font-size: 17px;
 }
 
+.parking-report-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  color: #2563eb;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.parking-report-link::before {
+  content: "↳";
+  margin-right: 4px;
+}
+
+.parking-report-link:hover,
+.parking-report-link:focus {
+  text-decoration: underline;
+}
+
 .show-more-parking-button {
   display: inline-flex;
   align-items: center;
