@@ -37,6 +37,7 @@
 
   const INITIAL_VISIBLE_PARKING_LOTS = 5;
   const MAX_VISIBLE_PARKING_LOTS_AFTER_EXPAND = 15;
+  const PARKING_REPORT_FORM_URL = "https://forms.gle/r9J43ufTEasTyR6F6";
 
   const PARKING_CREDIBILITY_NOTICES = Object.freeze({
     PL_KHB00362: Object.freeze({
@@ -1153,6 +1154,17 @@
           rel="noopener noreferrer"
         >
           開始導航
+        </a>
+
+        <a
+          class="parking-report-link"
+          href="${escapeHtml(
+            PARKING_REPORT_FORM_URL
+          )}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          現場狀況不符？幫大家回報
         </a>
       </article>
     `.trim();
