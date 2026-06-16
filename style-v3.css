@@ -480,7 +480,11 @@ input[type="text"]:focus {
   box-shadow: 0 0 0 4px rgba(44, 120, 183, 0.13);
 }
 
-.search-input::placeholder,
+.search-input::placeholder {
+  color: #b91c1c;
+  opacity: 1;
+}
+
 input::placeholder {
   color: #a0adb9;
 }
@@ -501,6 +505,19 @@ input::placeholder {
   font-weight: 850;
   line-height: 1;
   transition: transform 0.16s ease, filter 0.16s ease;
+}
+
+.search-button {
+  border: 1px solid #cbe3f4;
+  background: linear-gradient(180deg, #eef8ff 0%, #e3f2fc 100%);
+  color: var(--color-primary);
+}
+
+.search-button:disabled {
+  border-color: #d8e3ea;
+  background: #edf2f6;
+  color: #7c8d9a;
+  opacity: 0.72;
 }
 
 .search-button:active,
