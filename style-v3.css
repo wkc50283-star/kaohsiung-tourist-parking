@@ -364,6 +364,24 @@ img {
   letter-spacing: -0.025em;
 }
 
+.home-page .homepage-announcements {
+  position: relative;
+  z-index: 25;
+}
+
+.home-page .home-hero {
+  margin-top: 0;
+}
+
+.home-page .home-hero__content {
+  max-width: 660px;
+}
+
+.home-page .home-hero .hero-title {
+  font-size: clamp(34px, 6vw, 56px);
+  line-height: 1.18;
+}
+
 .hero-question {
   margin: 10px 0 0;
   color: var(--color-primary-deep);
@@ -495,6 +513,17 @@ input::placeholder {
 .search-button:hover,
 .primary-button:hover {
   filter: brightness(0.96);
+}
+
+.home-page .search-button {
+  border: 1px solid #cbe3f4;
+  background: linear-gradient(180deg, #eef8ff 0%, #e3f2fc 100%);
+  color: var(--color-primary);
+  box-shadow: none;
+}
+
+.home-page .search-button:hover {
+  filter: brightness(0.98);
 }
 
 .nearby-button,
