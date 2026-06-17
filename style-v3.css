@@ -511,12 +511,14 @@ input::placeholder {
   border: 1px solid #cbe3f4;
   background: linear-gradient(180deg, #eef8ff 0%, #e3f2fc 100%);
   color: var(--color-primary);
+  box-shadow: none;
 }
 
 .search-button:disabled {
   border-color: #d8e3ea;
-  background: #edf2f6;
+  background: linear-gradient(180deg, #f3f8fb 0%, #edf2f6 100%);
   color: #7c8d9a;
+  box-shadow: none;
   opacity: 0.72;
 }
 
