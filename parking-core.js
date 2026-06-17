@@ -996,7 +996,7 @@
     ) {
       return {
         type: "low",
-        message: "空位可能快速變動，建議準備備案"
+        message: "空位變動快，建議準備備案。"
       };
     }
 
@@ -1164,7 +1164,7 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          現場狀況不符？幫大家回報
+          幫忙回報現場狀況
         </a>
       </article>
     `.trim();
