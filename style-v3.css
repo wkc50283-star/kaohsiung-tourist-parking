@@ -534,6 +534,17 @@ input::placeholder {
   filter: brightness(0.96);
 }
 
+.home-page .search-button {
+  border: 1px solid #cbe3f4;
+  background: linear-gradient(180deg, #eef8ff 0%, #e3f2fc 100%);
+  color: var(--color-primary);
+  box-shadow: none;
+}
+
+.home-page .search-button:hover {
+  filter: brightness(0.98);
+}
+
 .nearby-button,
 .secondary-action-button,
 .view-nearby-button {
