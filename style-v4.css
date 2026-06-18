@@ -1837,3 +1837,33 @@ input::placeholder {
   font-weight: 700;
   line-height: 1.5;
 }
+
+/* 停車卡片底部：回報入口在左，低空位提醒在右 */
+.parking-card .parking-report-link {
+  order: 1;
+  margin-right: auto;
+}
+
+.parking-card .parking-availability-warning {
+  order: 2;
+  margin-left: auto;
+}
+
+@media (max-width: 640px) {
+  .parking-card .parking-card-actions {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .parking-card .parking-report-link {
+    flex: 0 1 auto;
+    margin-left: 0;
+  }
+
+  .parking-card .parking-availability-warning {
+    flex: 0 1 auto;
+    width: auto;
+    margin-bottom: 0;
+    text-align: right;
+  }
+}
