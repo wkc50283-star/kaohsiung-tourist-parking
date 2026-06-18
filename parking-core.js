@@ -37,6 +37,7 @@
 
   const INITIAL_VISIBLE_PARKING_LOTS = 5;
   const MAX_VISIBLE_PARKING_LOTS_AFTER_EXPAND = 15;
+  const PARKING_REPORT_FORM_URL = "https://forms.gle/r9J43ufTEasTyR6F6";
 
   const PARKING_CREDIBILITY_NOTICES = Object.freeze({
     PL_KHB00362: Object.freeze({
@@ -1081,19 +1082,6 @@
           </span>
         </div>
 
-        ${warning
-          ? `<div
-              class="parking-availability-warning parking-availability-warning--${escapeHtml(
-              warning.type
-            )}"
-              data-warning-type="${escapeHtml(
-                warning.type
-              )}"
-            >
-              ${escapeHtml(warning.message)}
-            </div>`
-          : ""}
-
         ${credibilityNotice
           ? `<div class="parking-credibility-notice parking-credibility-notice--${escapeHtml(
               credibilityNotice.status
@@ -1154,6 +1142,32 @@
         >
           開始導航
         </a>
+
+        <div class="parking-card__notice-row">
+          <a
+            class="parking-report-link"
+            href="${escapeHtml(
+              PARKING_REPORT_FORM_URL
+            )}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            幫忙回報現場狀況
+          </a>
+
+          ${warning
+            ? `<div
+                class="parking-availability-warning parking-availability-warning--${escapeHtml(
+                warning.type
+              )}"
+                data-warning-type="${escapeHtml(
+                  warning.type
+                )}"
+              >
+                ${escapeHtml(warning.message)}
+              </div>`
+            : ""}
+        </div>
       </article>
     `.trim();
   }
