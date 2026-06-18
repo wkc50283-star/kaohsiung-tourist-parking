@@ -226,6 +226,28 @@
     }),
 
     makeHotspot({
+      id: "far-eastern-department-store",
+      slug: "far-eastern-department-store-parking.html",
+      name: "高雄大遠百",
+      title: "高雄大遠百停車場推薦",
+      category: "百貨／商圈",
+      keywords: [
+        "高雄大遠百停車",
+        "高雄大遠百停車場",
+        "大遠百停車",
+        "大遠百附近停車",
+        "遠東百貨高雄店停車",
+        "遠百高雄店停車場",
+        "三多商圈大遠百停車"
+      ],
+      intro:
+        "快速查看高雄大遠百附近路外停車場即時剩餘空位、距離與導航。",
+      latitude: 22.61333,
+      longitude: 120.30361,
+      indexable: false
+    }),
+
+    makeHotspot({
       id: "dream-mall",
       slug: "dream-mall-parking.html",
       name: "夢時代購物中心",
