@@ -95,7 +95,8 @@
       intro:
         "快速查看鹽埕區附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.62694,
-      longitude: 120.28806
+      longitude: 120.28806,
+      indexable: true
     }),
 
     makeHotspot({
@@ -112,7 +113,8 @@
       intro:
         "快速查看高雄流行音樂中心附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.6178,
-      longitude: 120.2889
+      longitude: 120.2889,
+      indexable: true
     }),
 
     makeHotspot({
@@ -129,7 +131,8 @@
       intro:
         "快速查看愛河附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.62486,
-      longitude: 120.28912
+      longitude: 120.28912,
+      indexable: true
     }),
 
     makeHotspot({
@@ -146,7 +149,8 @@
       intro:
         "快速查看高雄巨蛋與巨蛋商圈附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.66917,
-      longitude: 120.30194
+      longitude: 120.30194,
+      indexable: true
     }),
 
     makeHotspot({
@@ -163,7 +167,8 @@
       intro:
         "快速查看新堀江與中央公園附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.62364,
-      longitude: 120.30147
+      longitude: 120.30147,
+      indexable: true
     }),
 
     makeHotspot({
@@ -180,7 +185,8 @@
       intro:
         "快速查看大立百貨附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.62251,
-      longitude: 120.29751
+      longitude: 120.29751,
+      indexable: true
     }),
 
     makeHotspot({
@@ -197,7 +203,8 @@
       intro:
         "快速查看漢神百貨附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.61978,
-      longitude: 120.29605
+      longitude: 120.29605,
+      indexable: true
     }),
 
     makeHotspot({
@@ -214,7 +221,8 @@
       intro:
         "快速查看三多商圈附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.6137,
-      longitude: 120.30448
+      longitude: 120.30448,
+      indexable: true
     }),
 
     makeHotspot({
@@ -231,7 +239,8 @@
       intro:
         "快速查看夢時代附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.59515,
-      longitude: 120.30617
+      longitude: 120.30617,
+      indexable: true
     }),
 
     makeHotspot({
@@ -248,7 +257,8 @@
       intro:
         "快速查看瑞豐夜市附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.66657,
-      longitude: 120.29962
+      longitude: 120.29962,
+      indexable: true
     }),
 
     makeHotspot({
@@ -265,7 +275,8 @@
       intro:
         "快速查看美麗島站與六合夜市附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.63139,
-      longitude: 120.30195
+      longitude: 120.30195,
+      indexable: true
     }),
 
     makeHotspot({
@@ -282,7 +293,8 @@
       intro:
         "快速查看衛武營附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.62508,
-      longitude: 120.34267
+      longitude: 120.34267,
+      indexable: true
     }),
 
     makeHotspot({
@@ -299,7 +311,8 @@
       intro:
         "快速查看旗津老街與渡輪站附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.61298,
-      longitude: 120.26841
+      longitude: 120.26841,
+      indexable: true
     }),
 
     makeHotspot({
@@ -316,7 +329,8 @@
       intro:
         "快速查看西子灣附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.62409,
-      longitude: 120.26495
+      longitude: 120.26495,
+      indexable: true
     }),
 
     makeHotspot({
@@ -333,7 +347,8 @@
       intro:
         "快速查看蓮池潭附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.6811,
-      longitude: 120.2933
+      longitude: 120.2933,
+      indexable: true
     }),
 
     makeHotspot({
@@ -350,7 +365,8 @@
       intro:
         "快速查看旗山老街附近路外停車場即時剩餘空位、距離與導航。",
       latitude: 22.88573,
-      longitude: 120.48363
+      longitude: 120.48363,
+      indexable: true
     }),
     
   ];
