@@ -1837,3 +1837,25 @@ input::placeholder {
   font-weight: 700;
   line-height: 1.5;
 }
+
+/* 手機版：低空位提醒與回報入口分行，避免卡片右側擁擠 */
+@media (max-width: 640px) {
+  .parking-card .parking-card-actions {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .parking-card .parking-availability-warning {
+    display: block;
+    flex: 0 0 100%;
+    width: 100%;
+    margin-bottom: 6px;
+  }
+
+  .parking-card .parking-report-link {
+    display: block;
+    width: fit-content;
+    margin-top: 6px;
+    margin-left: 0;
+  }
+}
