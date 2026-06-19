@@ -154,6 +154,48 @@
     }),
 
     makeHotspot({
+      id: "shin-kong-mitsukoshi-zuoying",
+      slug: "shin-kong-mitsukoshi-zuoying-parking.html",
+      name: "新光三越高雄左營店",
+      title: "新光三越高雄左營店停車場推薦",
+      category: "百貨／商圈",
+      keywords: [
+        "新光三越高雄左營店停車",
+        "新光三越左營停車",
+        "高雄左營新光三越停車場",
+        "左營新光三越停車",
+        "彩虹市集停車",
+        "左營高鐵百貨停車"
+      ],
+      intro:
+        "快速查看新光三越高雄左營店附近路外停車場即時剩餘空位、距離與導航。",
+      latitude: 22.6891377,
+      longitude: 120.310393,
+      indexable: false
+    }),
+
+    makeHotspot({
+      id: "e-sky-mall",
+      slug: "e-sky-mall-parking.html",
+      name: "義享時尚廣場",
+      title: "義享時尚廣場停車場推薦",
+      category: "百貨／商圈",
+      keywords: [
+        "義享時尚廣場停車",
+        "義享天地停車",
+        "義享停車場",
+        "義享時尚廣場附近停車",
+        "大順一路義享停車",
+        "高雄義享停車"
+      ],
+      intro:
+        "快速查看義享時尚廣場附近路外停車場即時剩餘空位、距離與導航。",
+      latitude: 22.6564492,
+      longitude: 120.3063184,
+      indexable: false
+    }),
+
+    makeHotspot({
       id: "xinkujiang-central-park",
       slug: "xinkujiang-central-park-parking.html",
       name: "新堀江／中央公園",
