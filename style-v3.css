@@ -591,6 +591,11 @@ input::placeholder {
   line-height: 1.7;
 }
 
+.homepage-warning-highlight {
+  color: #f97316;
+  font-weight: 700;
+}
+
 .quick-links,
 .quick-shortcuts {
   display: grid;
