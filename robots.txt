@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wkc50283-star.github.io/kaohsiung-tourist-parking/sitemap.xml
